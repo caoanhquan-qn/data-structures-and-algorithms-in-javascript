@@ -173,25 +173,67 @@ second array. The frequency of values must be the same
 
 */
 
-function same(arr1, arr2) {
-  // check length of the arrays
-  if (!(arr1.length === arr2.length)) return false;
+// function same(arr1, arr2) {
+//   // check length of the arrays
+//   if (!(arr1.length === arr2.length)) return false;
 
-  //loop arr1
-  for (const num1 of arr1) {
-    // loop arr2
-    for (const num2 of arr2) {
-      if (num2 === num1 * num1) {
-        const index = arr2.indexOf(num2);
-        arr2.splice(index, 1);
-        console.log(arr2);
-      }
-    }
+//   //loop arr1
+//   for (const num1 of arr1) {
+//     // loop arr2
+//     for (const num2 of arr2) {
+//       if (num2 === num1 * num1) {
+//         const index = arr2.indexOf(num2);
+//         arr2.splice(index, 1);
+//         console.log(arr2);
+//       }
+//     }
+//   }
+//   if (arr2.length === 0) return true;
+//   return false;
+// }
+
+// function same(arr1, arr2) {
+//   if (arr1.length !== arr2.length) return false;
+//   for (let i = 0; i < arr1.length; i++) {
+//     let correctIndex = arr2.indexOf(arr1[i] ** 2);
+//     if (correctIndex === -1) return false;
+//     arr2.splice(correctIndex, 1);
+//   }
+//   return true;
+// }
+
+function same(arr1, arr2) {
+  if (arr1.length !== arr2.length) return false;
+  let frequencyCounter1 = {};
+  let frequencyCounter2 = {};
+  for (let val of arr1) {
+    frequencyCounter1[val] = (frequencyCounter1[val] || 0) + 1;
   }
-  if (arr2.length === 0) return true;
-  return false;
+
+  for (let val of arr2) {
+    frequencyCounter2[val] = (frequencyCounter2[val] || 0) + 1;
+  }
+
+  for (let key in frequencyCounter1) {
+    if (!(key ** 2 in frequencyCounter2)) return false;
+    if (frequencyCounter2[key ** 2] !== frequencyCounter1[key]) return false;
+  }
+  return true;
 }
+
+// for/in loops through the properties of an object
 
 console.log(same([1, 2, 3], [4, 1, 9])); // true
 console.log(same([1, 2, 3], [1, 9])); // false
 console.log(same([1, 2, 1], [4, 4, 1])); // false
+
+console.log("///////////////");
+
+/*
+
+Anagrams
+Given two strings, write a function to determine if the second string is an 
+anagram of the first. An anagram is a word, phrase, or name formed by
+rearranging the letters of another, such as cinema, formed from iceman
+
+*/
