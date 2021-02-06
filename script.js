@@ -373,3 +373,129 @@ console.log(countUniqueValues([1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13])); // 7
 console.log(countUniqueValues([])); // 0
 console.log(countUniqueValues([-2, -1, -1, 0, 1])); // 4
 console.log(countUniqueValues([9])); // 1
+
+console.log("///////////////");
+
+/*
+
+ Write a function called maxSubarraySum which accepts an array of integers and
+ a number called n. The function should calculate the maximum sum of n
+ consecutive elements in the array
+
+*/
+
+// function maxSubarraySum(arr, num) {
+//   if (arr.length < num) return null;
+//   let i = 0;
+//   let j = num - 1;
+//   let max = 0;
+
+//   for (let x = 0; x <= j; x++) {
+//     max += arr[x];
+//   }
+
+//   while (j < arr.length) {
+//     let sum = 0;
+//     for (let k = i; k <= j; k++) {
+//       // console.log(k);
+//       sum += arr[k];
+//     }
+//     // console.log(sum);
+//     if (sum > max) {
+//       max = sum;
+//     }
+
+//     i++;
+//     j++;
+//   }
+//   return max;
+// }
+
+// function maxSubarraySum(arr, num) {
+//   if (num > arr.length) return null;
+//   let max = -Infinity;
+//   for (let i = 0; i < arr.length - num + 1; i++) {
+//     let temp = 0;
+//     for (let j = 0; j < num; j++) {
+//       temp += arr[i + j];
+//     }
+//     if (temp > max) {
+//       max = temp;
+//     }
+//   }
+//   return max;
+// }
+
+// sliding window
+
+function maxSubarraySum(arr, num) {
+  let maxSum = 0;
+  let tempSum = 0;
+  if (arr.length < num) return null;
+  for (let i = 0; i < num; i++) {
+    maxSum += arr[i];
+  }
+  tempSum = maxSum;
+  for (let i = num; i < arr.length; i++) {
+    tempSum = tempSum - arr[i - num] + arr[i];
+    maxSum = Math.max(maxSum, tempSum);
+  }
+  return maxSum;
+}
+
+console.log(maxSubarraySum([1, 2, 5, 2, 8, 1, 5], 2)); // 10
+console.log(maxSubarraySum([1, 2, 5, 2, 8, 1, 5], 4)); // 17
+console.log(maxSubarraySum([4, 2, 1, 6], 1)); // 6
+console.log(maxSubarraySum([4, 2, 1, 6, 2], 4)); //13
+console.log(maxSubarraySum([], 4)); // null
+
+/*
+
+Given a sorted array of integers, write a function called search, that accepts
+a value and returns the index where the value passed to the function is located.
+If the value is not found, return -1
+
+ */
+
+console.log("///////////////");
+
+// function search(arr, num) {
+//   const correctIndex = arr.indexOf(num);
+//   return correctIndex;
+// }
+
+// function search(arr, num) {
+//   for (let i = 0; i < arr.length; i++) {
+//     if (arr[i] === num) {
+//       return i;
+//     }
+//   }
+//   return -1;
+// }
+
+/* 
+
+binary search
+time complexity - O(log n) 
+
+*/
+function search(arr, num) {
+  let min = 0;
+  let max = arr.length - 1;
+  while (min <= max) {
+    let middle = Math.floor((min + max) / 2);
+    let currentElement = arr[middle];
+    if (currentElement < num) {
+      min = middle + 1;
+    } else if (currentElement > num) {
+      max = middle - 1;
+    } else {
+      return middle;
+    }
+  }
+  return -1;
+}
+
+console.log(search([1, 2, 3, 4, 5, 6], 4)); // 3
+console.log(search([1, 2, 3, 4, 5, 6], 6)); // 5
+console.log(search([1, 2, 3, 4, 5, 6], 11)); // -1

@@ -1,0 +1,200 @@
+Big O Notation
+---------------------
+
+In computer science, big O notation is used to classify algorithms according to how their running time or space requirements grow as the input size grows
+time complexity
+
+input size = N
+
+1. O(1)
+2. O(log n) 
+4. O(n)
+6. O(n log n)
+8. O(n^2) (quadratic)
+
+big O time complexity 
+
+constant > log n > √n > n > n log n > n^2 > 2^n > n! 
+
+option + v : √
+
+best sorting algorithm = O(N log(N))
+search a table of N rows = O(N)
+print array of N = O(N)
+
+b-tree : the core of most databases implementations 
+b-tree : a self-balancing tree data structures that keeps data sorted and allows searches, sequential access, insertions and deletions in logarithmic time. It is commonly used in databases and filesystems
+
+b-tree of order m = 3, meaning a node has at most 3 children 
+
+space complexity 
+---------------------
+
+what happens to the space that an algorithm takes up as the size of the input increases
+we can also use big O notation to analyze space complexity: how much additional memory do we need to allocate in order to run the code in our algorithm?
+
+sometimes you’ll hear the term auxiliary space complexity to refer to space required by the algorithm, not including space taken up by the inputs
+
+unless otherwise noted, when we talk about space complexity, technically we’ll be talking about auxiliary space complexity 
+
+space complexity in JS (rules of thumb)
+- most primitives (booleans, numbers, undefined, null) are constant space
+- Strings require O(n) space (where n is the string length)
+- Reference types are generally O(n), where n is the length (for arrays) or the number of keys (for objects)
+
+logarithm
+this isn’t a math course, so here’s a rule of thumb
+the logarithm of a number roughly measures the number of times you can divide that number by 2 before you get a value that’s less than or equal to one
+
+=> logarithm complexity
+
+who cares?
+- certain searching algorithms have logarithmic time complexity
+- efficient sorting algorithms involve logarithms 
+- recursion sometimes involves logarithmic space complexity 
+
+Recap
+- To analyze the performance of an algorithm, we use Big O Notation
+- Big O Notation can give us a high level understanding of the time or space complexity of an algorithm
+- Big O Notation doesn’t care about precision, only about general trends  (linear? quadratic? constant?)
+- The time or space complexity (as measured by Big O) depends only on the algorithm, not the hardware used to run the algorithm
+- Big O Notation is everywhere, so get lots of practice
+
+---------------------
+
+when to use objects
+- when you don’t need order
+- when you need fast access/ insertion and removal
+
+Big O of Objects
+
+insertion - O(1)
+removal - O(1)
+searching - O(n)
+access - O(1)
+update - O(1)
+
+when you don’t need any ordering, objects are an excellent choice!
+
+Big O of Object methods
+
+Object.keys - O(n)
+Object.values - O(n)
+Object.entries - O(n)
+Object.hasOwnProperty - O(1)
+
+---------------------
+
+const jonas = {
+  firstName: "Nick",
+  age: 32,
+  isSingle: true,
+  score: [49, 64, 75, 85],
+};
+
+console.log(Object.keys(jonas));
+
+// ["firstName", "age", "isSingle", "score"]
+
+console.log(Object.values(jonas));
+
+// ["Nick", 32, true, Array(4)]
+
+console.log(Object.entries(jonas));
+
+/*
+0: (2) ["firstName", "Nick"]
+1: (2) ["age", 32]
+2: (2) ["isSingle", true]
+3: (2) ["score", Array(4)]
+*/
+
+console.log(jonas.hasOwnProperty("score")); // true
+
+---------------------
+
+when to use arrays
+- when you need order 
+- when you need fast access/ insertion and removal
+
+Big O of arrays
+
+insertion - it depends
+depends on where we’re inserting/removing 
+
+if we add to the end of the array => O(1)
+the problem comes when we try to insert at the beginning of an array. we have to re-index every single element in the array. If we’re talking about thousands and thousands of elements, re-indexing every single one is not a trivial task => O(n)
+inserting in the beginning is problematic. the same goes for removing from the beginning ⬇︎
+
+removal - it depends
+remove from the beginning => O(n)
+remove the last element => O(1)
+
+
+=> adding and removing from the beginning of an array is best to avoid if you can. So push and pop are always faster than unshift and shift
+push - unshift
+pop - shift
+
+unless it’s an empty array in which case adding to the beginning or end is the same thing
+
+searching - O(n)
+
+access - O(1)
+it doesn’t matter how long the array is => jump immediately to the data 
+
+Big O of array operations
+- push - O(1)
+- pop - O(1)
+- shift - O(n)
+- unshift - O(n)
+- concat - O(n)
+- slice - O(n)
+- splice - O(n)
+- sort - O(n * log n)
+- forEach/ map/ filter/ reduce/ ... - O(n)
+
+---------------------
+Problem solving pattern
+- Frequency counter
+- Multiple pointers
+- Sliding window
+- Divide and conquer
+- Dynamic programming
+- Greedy algorithms
+- Backtracking
+- Many more! 
+
+Frequency counter
+This pattern uses objects or sets to collect values/ frequencies of values. This can often avoid the need for nested loops or O(n^2) operations with arrays/ strings
+
+Multiple pointers (it’s not really an official name)
+
+Creating pointers or values that correspond to an index or position and move towards the beginning, end or middle based on a certain condition. Very efficient for solving problems with minimal space complexity as well
+
+Sliding window
+This pattern involves creating a window which can either be an array or number from one position to another. Depending on a certain condition, the window either increases or closes (and a new window is created). Very useful for keeping track of a subset of data in an array/ string
+
+Divide and Conquer pattern
+This pattern involves dividing a data set into smaller chunks and then repeating a process with a subset of data. This pattern can tremendously decrease time complexity
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
