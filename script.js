@@ -202,6 +202,8 @@ second array. The frequency of values must be the same
 //   return true;
 // }
 
+// frequency counter pattern
+
 function same(arr1, arr2) {
   if (arr1.length !== arr2.length) return false;
   let frequencyCounter1 = {};
@@ -237,3 +239,137 @@ anagram of the first. An anagram is a word, phrase, or name formed by
 rearranging the letters of another, such as cinema, formed from iceman
 
 */
+// function validAnagram(str1, str2) {
+//   if (str1.length !== str2.length) return false;
+//   let obj1 = {};
+//   let obj2 = {};
+//   for (const val of str1) {
+//     obj1[val] = (obj1[val] || 0) + 1;
+//   }
+
+//   for (const val of str2) {
+//     obj2[val] = (obj2[val] || 0) + 1;
+//   }
+//   for (let key in obj1) {
+//     if (!(key in obj2)) return false;
+//     if (obj1[key] !== obj2[key]) return false;
+//   }
+//   return true;
+// }
+
+function validAnagram(first, second) {
+  if (first.length !== second.length) return false;
+  const lookup = {};
+  for (let i = 0; i < first.length; i++) {
+    let letter = first[i];
+    lookup[letter] ? (lookup[letter] += 1) : (lookup[letter] = 1);
+  }
+
+  for (let i = 0; i < second.length; i++) {
+    let letter = second[i];
+    if (!lookup[letter]) return false;
+    else lookup[letter] -= 1;
+  }
+  return true;
+}
+
+console.log(validAnagram("", "")); // true
+console.log(validAnagram("aaz", "zza")); // false
+console.log(validAnagram("anagram", "nagaram")); // true
+console.log(validAnagram("rat", "cat")); //false
+console.log(validAnagram("awesome", "awesom")); // false
+console.log(validAnagram("qwerty", "qeywrt")); // true
+console.log(validAnagram("texttwisttime", "timetwisttext")); // true
+
+/*
+
+Write a function called sumZero which accepts a sorted array of integers. The
+function should find the first pair where the sum is 0. Return an array that includes 
+both values that sum to zero or undefined if a pair does not exist
+
+*/
+// function sumZero(arr) {
+//   for (let i = 0; i < arr.length; i++) {
+//     for (let j = i + 1; j < arr.length; j++) {
+//       if (arr[i] + arr[j] === 0) {
+//         return [arr[i], arr[j]];
+//       }
+//     }
+//   }
+// }
+
+// multiple pointers pattern
+
+function sumZero(arr) {
+  let left = 0;
+  let right = arr.length - 1;
+  while (left < right) {
+    let sum = arr[left] + arr[right];
+    if (sum === 0) {
+      return [arr[left], arr[right]];
+    } else if (sum > 0) {
+      right--;
+    } else {
+      left++;
+    }
+  }
+}
+
+// time complexity - O(n) and space complexity - O(1)
+
+console.log(sumZero([-3, -2, -1, 0, 1, 2, 3])); // [-3,3]
+console.log(sumZero([-2, 0, 1, 3])); // undefined
+console.log(sumZero([1, 2, 3])); // undefined
+
+/* 
+
+Implement a function called countUniqueValues, which accepts a sorted array and
+counts the unique values in the array. There can be negative numbers in the 
+array, but it will always be sorted 
+
+*/
+
+console.log("///////////////");
+
+// function countUniqueValues(arr) {
+//   if (arr.length === 0) return 0;
+
+//   let left1 = 0;
+//   let left2 = 1;
+//   let count = 1;
+//   while (left2 < arr.length) {
+//     if (arr[left1] === arr[left2]) {
+//       left1++;
+//       left2++;
+//     } else {
+//       count++;
+//       left1++;
+//       left2++;
+//     }
+//   }
+//   return count;
+// }
+
+function countUniqueValues(arr) {
+  if (arr.length === 0) return 0;
+
+  let left1 = 0;
+  let left2 = 1;
+
+  while (left2 < arr.length) {
+    if (arr[left1] === arr[left2]) {
+      left2++;
+    } else {
+      left1++;
+      arr[left1] = arr[left2];
+      left2++;
+    }
+  }
+  return left1 + 1;
+}
+
+console.log(countUniqueValues([1, 1, 1, 1, 1, 2])); // 2
+console.log(countUniqueValues([1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13])); // 7
+console.log(countUniqueValues([])); // 0
+console.log(countUniqueValues([-2, -1, -1, 0, 1])); // 4
+console.log(countUniqueValues([9])); // 1
