@@ -428,26 +428,26 @@ console.log("///////////////");
 
 // sliding window
 
-function maxSubarraySum(arr, num) {
-  let maxSum = 0;
-  let tempSum = 0;
-  if (arr.length < num) return null;
-  for (let i = 0; i < num; i++) {
-    maxSum += arr[i];
-  }
-  tempSum = maxSum;
-  for (let i = num; i < arr.length; i++) {
-    tempSum = tempSum - arr[i - num] + arr[i];
-    maxSum = Math.max(maxSum, tempSum);
-  }
-  return maxSum;
-}
+// function maxSubarraySum(arr, num) {
+//   let maxSum = 0;
+//   let tempSum = 0;
+//   if (arr.length < num) return null;
+//   for (let i = 0; i < num; i++) {
+//     maxSum += arr[i];
+//   }
+//   tempSum = maxSum;
+//   for (let i = num; i < arr.length; i++) {
+//     tempSum = tempSum - arr[i - num] + arr[i];
+//     maxSum = Math.max(maxSum, tempSum);
+//   }
+//   return maxSum;
+// }
 
-console.log(maxSubarraySum([1, 2, 5, 2, 8, 1, 5], 2)); // 10
-console.log(maxSubarraySum([1, 2, 5, 2, 8, 1, 5], 4)); // 17
-console.log(maxSubarraySum([4, 2, 1, 6], 1)); // 6
-console.log(maxSubarraySum([4, 2, 1, 6, 2], 4)); //13
-console.log(maxSubarraySum([], 4)); // null
+// console.log(maxSubarraySum([1, 2, 5, 2, 8, 1, 5], 2)); // 10
+// console.log(maxSubarraySum([1, 2, 5, 2, 8, 1, 5], 4)); // 17
+// console.log(maxSubarraySum([4, 2, 1, 6], 1)); // 6
+// console.log(maxSubarraySum([4, 2, 1, 6, 2], 4)); //13
+// console.log(maxSubarraySum([], 4)); // null
 
 /*
 
@@ -499,3 +499,265 @@ function search(arr, num) {
 console.log(search([1, 2, 3, 4, 5, 6], 4)); // 3
 console.log(search([1, 2, 3, 4, 5, 6], 6)); // 5
 console.log(search([1, 2, 3, 4, 5, 6], 11)); // -1
+
+console.log("///////////////");
+
+/*
+Write a function called sameFrequency. Given two positive integers, find out if
+the two numbers have the same frequency of digits  
+ */
+
+function sameFrequency(num1, num2) {
+  const num1Str = num1 + "";
+  const num2Str = num2 + "";
+  if (num1Str.length !== num2Str.length) return false;
+  let obj1 = {};
+  let obj2 = {};
+  for (const val of num1Str) {
+    obj1[val] = (obj1[val] || 0) + 1;
+  }
+  for (const val of num2Str) {
+    obj2[val] = (obj2[val] || 0) + 1;
+  }
+  for (const key in obj1) {
+    if (!(key in obj2)) return false;
+    if (obj1[key] !== obj2[key]) return false;
+  }
+  return true;
+}
+
+console.log(sameFrequency(182, 281)); // true
+console.log(sameFrequency(34, 14)); // false
+console.log(sameFrequency(3589578, 5879385)); //true
+console.log(sameFrequency(22, 222)); // false
+
+console.log("///////////////");
+
+/* 
+
+Implement a function called , areThereDuplicates which accepts a variable number
+of arguments and checks whether there are any duplicates among the arguments
+passed in. You can solve this using the frequency counter pattern or multiple pointers 
+pattern
+
+ */
+
+// frequency counter pattern
+
+// function areThereDuplicates(...arr) {
+//   let obj = {};
+//   for (const val of arr) {
+//     obj[val] = (obj[val] || 0) + 1;
+//     if (obj[val] > 1) return true;
+//   }
+//   return false;
+// }
+
+// multiple pointers pattern
+
+// function areThereDuplicates(...arr) {
+//   let pointer1 = 0;
+//   let pointer2 = 1;
+//   while (pointer1 < arr.length - 1) {
+//     for (let i = pointer2; i < arr.length; i++) {
+//       if (arr[pointer1] === arr[i]) return true;
+//     }
+//     pointer1++;
+//     pointer2++;
+//   }
+//   return false;
+// }
+
+// function areThereDuplicates(...args) {
+//   args.sort((a, b) => a > b);
+//   let start = 0;
+//   let next = 1;
+//   while (next < args.length) {
+//     if (args[start] === args[next]) {
+//       return true;
+//     }
+//     start++;
+//     next++;
+//   }
+//   return false;
+// }
+
+function areThereDuplicates(...args) {
+  return new Set(args).size !== args.length;
+}
+console.log(areThereDuplicates(1, 2, 3)); // false
+console.log(areThereDuplicates(1, 2, 2)); // true
+console.log(areThereDuplicates("a", "b", "c", "a")); // true
+
+console.log("///////////////");
+
+/* 
+Write a function called averagePair. Given a sorted array of integers and a target
+average, determine if there is a pair values in the array where the average of
+the pair equals the target average. There may be more than one pair that matches
+the average target
+ */
+
+// naive solution
+// function averagePair(arr, targetNum) {
+//   if (arr.length < 1) return false;
+//   let start = 0;
+//   let next = 1;
+//   while (next < arr.length) {
+//     for (let i = next; i < arr.length; i++) {
+//       if ((arr[start] + arr[i]) / 2 === targetNum) return true;
+//     }
+//     start++;
+//     next++;
+//   }
+//   return false;
+// }
+
+function averagePair(arr, targetNum) {
+  let start = 0;
+  let end = arr.length - 1;
+  while (start < end) {
+    const avg = (arr[start] + arr[end]) / 2;
+    if (avg === targetNum) return true;
+    if (avg < targetNum) {
+      start++;
+    }
+    if (avg > targetNum) {
+      end--;
+    }
+  }
+  return false;
+}
+
+console.log(averagePair([1, 2, 3], 2.5)); // true
+console.log(averagePair([1, 3, 3, 5, 6, 7, 10, 12, 19], 8)); // true
+console.log(averagePair([-1, 0, 3, 4, 5, 6], 4.1)); // false
+console.log(averagePair([], 4)); // false
+
+console.log("///////////////");
+
+/* 
+Write a function called isSubsequence which takes in two strings and checks whether
+the characters in the first string form a subsequence of the characters in the
+second string. In other words, the function should check whether the characters 
+in the first string appear somewhere in the second string without their order
+changing
+ */
+
+// naive solution
+// function isSubsequence(str1, str2) {
+//   let pointer = 0;
+//   for (let i = 0; i < str1.length; i++) {
+//     for (let j = pointer; j <= str2.length; j++) {
+//       if (str1[i] === str2[j]) {
+//         pointer = j + 1;
+//         break;
+//       }
+//       const str = str2.slice(pointer);
+//       if (!str.includes(str1[i])) return false;
+//     }
+//   }
+//   return true;
+// }
+
+// function isSubsequence(str1, str2) {
+//   let i = 0;
+//   let j = 0;
+//   if (!str1) return true;
+//   while (j < str2.length) {
+//     if (str2[j] === str1[i]) i++;
+//     if (i === str1.length) return true;
+//     j++;
+//   }
+//   return false;
+// }
+
+function isSubsequence(str1, str2) {
+  if (str1.length === 0) return true;
+  if (str2.length === 0) return false;
+  if (str2[0] === str1[0]) return isSubsequence(str1.slice(1), str2.slice(1));
+  return isSubsequence(str1, str2.slice(1));
+}
+
+console.log(isSubsequence("hello", "hello world")); // true
+console.log(isSubsequence("sing", "sting")); // true
+console.log(isSubsequence("abc", "abracadabra")); // true
+console.log(isSubsequence("abc", "acb")); // false
+
+/* 
+Given an array of integers and a number, write a function called maxSubarraySum,
+which finds the maximum sum of a subarray with the length of the number passed
+to the function.
+
+Note that a subarray must consist of consecutive elements from the original array.
+
+*/
+
+// sliding window pattern
+
+function maxSubarraySum(arr, num) {
+  let maxSum = 0;
+  let tempSum = 0;
+
+  if (arr.length < num) return null;
+
+  for (let i = 0; i < num; i++) {
+    maxSum += arr[i];
+  }
+  tempSum = maxSum;
+  for (let i = num; i < arr.length; i++) {
+    tempSum = tempSum - arr[i - num] + arr[i];
+    maxSum = Math.max(maxSum, tempSum);
+  }
+  return maxSum;
+}
+console.log(maxSubarraySum([100, 200, 300, 400], 2)); // 700
+console.log(maxSubarraySum([1, 4, 2, 10, 23, 3, 1, 0, 20], 4)); // 39
+console.log(maxSubarraySum([-3, 4, 0, -2, 6, -1], 2)); // 5
+console.log(maxSubarraySum([3, -2, 7, -4, 1, -1, 4, -2, 1], 2)); // 5
+console.log(maxSubarraySum([2, 3], 3)); // null
+
+console.log("///////////////");
+
+/* 
+
+Write a function called minSubArrayLen which accepts two parameters - an array
+of positive integers and a positive integer.
+
+This function should return the minimal length of a contiguous subarray of
+which the sum is greater than or equal to the integer passed to the function.
+If there isn't one, return 0 instead.
+
+*/
+
+function minSubArrayLen(arr, num) {
+  let minLen = 1;
+  while (minLen <= arr.length) {
+    let maxSum = 0;
+    let tempSum = 0;
+    for (let i = 0; i < minLen; i++) {
+      maxSum += arr[i];
+    }
+    tempSum = maxSum;
+    for (let i = minLen; i < arr.length; i++) {
+      tempSum = tempSum - arr[i - minLen] + arr[i];
+      maxSum = Math.max(maxSum, tempSum);
+    }
+    if (maxSum >= num) {
+      return minLen;
+    } else {
+      minLen++;
+    }
+  }
+  return 0;
+}
+
+console.log(minSubArrayLen([2, 3, 1, 2, 4, 3], 7)); // 2
+console.log(minSubArrayLen([2, 1, 6, 5, 4], 9)); // 2
+console.log(minSubArrayLen([3, 1, 7, 11, 2, 9, 8, 21, 62, 33, 19], 52)); // 1
+console.log(minSubArrayLen([1, 4, 16, 22, 5, 7, 8, 9, 10], 39)); // 3
+console.log(minSubArrayLen([1, 4, 16, 22, 5, 7, 8, 9, 10], 55)); // 5
+console.log(minSubArrayLen([4, 3, 3, 8, 1, 2, 3], 11)); // 2
+console.log(minSubArrayLen([1, 4, 16, 22, 5, 7, 8, 9, 10], 95)); // 0
+
+console.log("///////////////");
