@@ -761,3 +761,177 @@ console.log(minSubArrayLen([4, 3, 3, 8, 1, 2, 3], 11)); // 2
 console.log(minSubArrayLen([1, 4, 16, 22, 5, 7, 8, 9, 10], 95)); // 0
 
 console.log("///////////////");
+
+/* 
+
+Write a function called findLongestSubstring, which accepts a string and 
+returns the length of the longest substring with all distinct characters
+
+*/
+
+function findLongestSubstring(str) {}
+// console.log(findLongestSubstring("rithmschool"));
+
+/*  Recursion */
+
+// factorial
+
+/*  recursively
+note : 0! = 1
+ */
+// function factorial(num) {
+//   if (num === 0) return 1;
+//   return num * factorial(num - 1);
+// }
+
+// iteratively
+function factorial(num) {
+  let product = 1;
+  for (let i = num; i > 0; i--) {
+    product *= i;
+  }
+  return product;
+}
+console.log(factorial(4));
+console.log(factorial(5));
+
+// countdown by recursion
+function countdown(num) {
+  if (num < 0) {
+    console.log("All done!!!");
+    return "All done. Congratulations!!!";
+  }
+  console.log(num);
+  return countdown(num - 1);
+}
+console.log(countdown(6));
+
+// helper method recursion
+
+/* 
+
+Try to collect all of the odd values in an array
+
+ */
+
+// function collectOddValues(arr) {
+//   let result = [];
+//   function helper(helperInput) {
+//     if (helperInput.length === 0) return;
+//     if (helperInput[0] % 2 !== 0) {
+//       result.push(helperInput[0]);
+//     }
+//     helper(helperInput.slice(1));
+//   }
+//   helper(arr);
+//   return result;
+// }
+
+// pure recursion
+
+function collectOddValues(arr) {
+  let newArr = [];
+  if (arr.length === 0) {
+    return newArr;
+  }
+
+  if (arr[0] % 2 !== 0) {
+    newArr.push(arr[0]);
+  }
+
+  newArr = newArr.concat(collectOddValues(arr.slice(1)));
+  return newArr;
+}
+
+console.log("///////////////");
+
+/* 
+Write a function called power which accepts a base and an exponent. The function
+should return the power of the base to the exponent. This function should mimic
+the functionality of Math.pow()
+ */
+
+function power(base, exponent) {
+  if (exponent === 0) return 1;
+  return base * power(base, exponent - 1);
+}
+// console.log(power(2, 0));
+// console.log(power(2, 2));
+// console.log(power(2, 4));
+
+/* 
+Write a function called productOfArray which takes in an array of numbers and 
+returns the product of them all
+ */
+
+// function productOfArray(arr) {
+//   let product = 1;
+
+//   function helper(helperInput) {
+//     if (helperInput.length === 0) return;
+//     product = product * helperInput[0];
+//     helper(helperInput.slice(1));
+//   }
+
+//   helper(arr);
+//   return product;
+// }
+
+function productOfArray(arr) {
+  if (arr.length === 0) {
+    return 1;
+  }
+
+  return arr[0] * productOfArray(arr.slice(1));
+}
+
+console.log(productOfArray([1, 2, 3])); // 6
+console.log(productOfArray([1, 2, 3, 10])); // 60
+
+/* 
+
+Write a function called recursiveRange which accepts a number and adds up
+all the numbers from 0 to the number passed to the function
+
+ */
+
+function recursiveRange(num) {
+  if (num === 0) return 0;
+  return num + recursiveRange(num - 1);
+}
+// console.log(recursiveRange(6));
+// console.log(recursiveRange(10));
+
+/* 
+
+fib
+Write a recursive function called fib which accepts a number and returns the nth
+number in the Fibonacci sequence. Recall that the Fibonacci sequence is the
+sequence of whole numbers 0, 1, 1, 2, 3, 5, 8,... which starts with 0 and 1, and
+where every number thereafter is equal to the sum of the previous two numbers
+
+ */
+// function fib(num) {
+//   let arr = [0, 1];
+//   for (let i = 2; i <= num; i++) {
+//     arr.push(arr[i - 2] + arr[i - 1]);
+//   }
+//   return arr[num];
+// }
+
+// function fib(num) {
+//   if (num === 1) return 1;
+//   if (num === 0) return 0;
+//   return fib(num - 2) + fib(num - 1);
+// }
+
+function fib(n) {
+  if (n <= 2) return 1;
+  return fib(n - 1) + fib(n - 2);
+}
+console.log(fib(4)); // 3
+console.log(fib(10)); // 55
+console.log(fib(28)); // 317811
+console.log(fib(35)); // 9227465
+
+console.log("///////////////");

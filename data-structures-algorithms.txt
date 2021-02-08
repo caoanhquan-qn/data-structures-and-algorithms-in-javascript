@@ -177,24 +177,27 @@ This pattern involves creating a window which can either be an array or number f
 Divide and Conquer pattern
 This pattern involves dividing a data set into smaller chunks and then repeating a process with a subset of data. This pattern can tremendously decrease time complexity
 
+---------------------
+Recursion
+What is recursion?
+A process (a function in our case) that calls itself
 
+How recursive functions work?
+Invoke the same function with a different input until you reach your base case
+base case: the condition when the recursion ends
 
+Two essential parts of a recursive function
+- base case
+- different input
 
+Common recursion pitfalls
+- No base case
+- Forgetting to return or returning the wrong thing
+- stack overflow
 
+stack overflow : maximum call stack size exceeded, too many frames on that stack, too many functions trying to be called. This means that your recursion is not stopped
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Pure recursion tips
+- For arrays, use methods like slice, the spread operator and concat that make copies of arrays so you do not mutate them
+- Remember that strings are immutable so you will need to use methods like slice, substr or substring to make copies of strings
+- To make copies of objects use Object.assign or the spread operator
