@@ -201,3 +201,17 @@ Pure recursion tips
 - For arrays, use methods like slice, the spread operator and concat that make copies of arrays so you do not mutate them
 - Remember that strings are immutable so you will need to use methods like slice, substr or substring to make copies of strings
 - To make copies of objects use Object.assign or the spread operator
+
+---------------------
+
+Searching Algorithms
+- Linear search : it’s the best we can do with an unsorted piece of data
+- Binary Search : only works on sorted arrays. The idea is divide and conquer pattern
+
+There are many different search methods on arrays in Javascript
+- indexOf
+- includes
+- find
+- findIndex
+
+How do these functions work?
