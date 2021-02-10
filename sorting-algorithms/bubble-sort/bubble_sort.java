@@ -1,6 +1,5 @@
-package com.anhquancao;
 
-public class Main {
+public class bubble_sort {
 
     public static void main(String[] args) {
 

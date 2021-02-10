@@ -1394,7 +1394,6 @@ function selectionSort(arr) {
     [arr[index1], arr[index2]] = [arr[index2], arr[index1]];
   };
   let minIndex;
-  console.log(arr.length);
 
   for (let i = 0; i < arr.length - 1; i++) {
     minIndex = i;
