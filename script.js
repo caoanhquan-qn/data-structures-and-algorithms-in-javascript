@@ -1297,12 +1297,12 @@ function linearSearch(arr, num) {
   }
   return -1;
 }
-console.log(linearSearch([10, 15, 20, 25, 30], 15)); //1
-console.log(linearSearch([9, 8, 7, 6, 5, 4, 3, 2, 1, 0], 4)); //5
-console.log(linearSearch([100], 100)); // 0
-console.log(linearSearch([1, 2, 3, 4, 5], 6)); //-1
-console.log(linearSearch([9, 8, 7, 6, 5, 4, 3, 2, 1, 0], 10)); //-1
-console.log(linearSearch([100], 200)); //-1
+// console.log(linearSearch([10, 15, 20, 25, 30], 15)); //1
+// console.log(linearSearch([9, 8, 7, 6, 5, 4, 3, 2, 1, 0], 4)); //5
+// console.log(linearSearch([100], 100)); // 0
+// console.log(linearSearch([1, 2, 3, 4, 5], 6)); //-1
+// console.log(linearSearch([9, 8, 7, 6, 5, 4, 3, 2, 1, 0], 10)); //-1
+// console.log(linearSearch([100], 200)); //-1
 
 /* 
 
@@ -1327,3 +1327,86 @@ function binarySearch(arr, num) {
   }
   return -1;
 }
+
+/* Naive string search
+Suppose you want to count the number of times a smaller string appears in a longer
+string  */
+
+function countFrequency(largerStr, smallerStr) {
+  let count = 0;
+  let largeLen = largerStr.length;
+  let smallLen = smallerStr.length;
+
+  for (let i = 0; i <= largeLen - smallLen; i++) {
+    INNER: for (let j = 0; j < smallLen; j++) {
+      if (largerStr[i + j] !== smallerStr[j]) {
+        break INNER;
+      }
+      if (j === smallLen - 1) {
+        count++;
+      }
+    }
+  }
+  return count;
+}
+
+// console.log(countFrequency("caoanhquan", "an"));
+
+/* ----------Sorting Algorithms----------- */
+
+// Bubble sort
+
+function bubbleSort(arr) {
+  // const swap = function (arr, index1, index2) {
+  //   if (index1 === index2) return;
+
+  //   let temp = arr[index1];
+  //   arr[index1] = arr[index2];
+  //   arr[index2] = temp;
+  // };
+
+  const swap = function (arr, index1, index2) {
+    [arr[index1], arr[index2]] = [arr[index2], arr[index1]];
+  };
+  let noSwaps;
+  for (
+    let lastUnsortedIndex = arr.length - 1;
+    lastUnsortedIndex > 0;
+    lastUnsortedIndex--
+  ) {
+    noSwaps = true;
+    for (let i = 0; i < lastUnsortedIndex; i++) {
+      if (arr[i] > arr[i + 1]) {
+        swap(arr, i, i + 1);
+        noSwaps = false;
+      }
+    }
+    if (noSwaps) break;
+  }
+  return arr;
+}
+// console.log(bubbleSort([3, 44, 38, 5, 47, 15, 36, 26, 27, 2, 46, 4, 19, 50]));
+
+// Selection sort
+
+function selectionSort(arr) {
+  const swap = function (arr, index1, index2) {
+    [arr[index1], arr[index2]] = [arr[index2], arr[index1]];
+  };
+  let minIndex;
+  console.log(arr.length);
+
+  for (let i = 0; i < arr.length - 1; i++) {
+    minIndex = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[minIndex] > arr[j]) {
+        minIndex = j;
+      }
+    }
+    swap(arr, i, minIndex);
+  }
+  return arr;
+}
+
+console.log(selectionSort([3, 44, 38, 27, 10, 1]));
+console.log(selectionSort([3, 44, 38, 5, 47, 15, 36, 26, 27, 46, 4, 19, 50]));

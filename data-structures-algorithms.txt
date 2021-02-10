@@ -23,7 +23,8 @@ search a table of N rows = O(N)
 print array of N = O(N)
 
 b-tree : the core of most databases implementations 
-b-tree : a self-balancing tree data structures that keeps data sorted and allows searches, sequential access, insertions and deletions in logarithmic time. It is commonly used in databases and filesystems
+b-tree : a self-balancing tree data structures that keeps data sorted and allows searches, sequential access, insertions and deletions in logarithmic time. 
+It is commonly used in databases and filesystems
 
 b-tree of order m = 3, meaning a node has at most 3 children 
 
@@ -123,7 +124,8 @@ insertion - it depends
 depends on where we’re inserting/removing 
 
 if we add to the end of the array => O(1)
-the problem comes when we try to insert at the beginning of an array. we have to re-index every single element in the array. If we’re talking about thousands and thousands of elements, re-indexing every single one is not a trivial task => O(n)
+the problem comes when we try to insert at the beginning of an array. we have to re-index every single element in the array. 
+If we’re talking about thousands and thousands of elements, re-indexing every single one is not a trivial task => O(n)
 inserting in the beginning is problematic. the same goes for removing from the beginning ⬇︎
 
 removal - it depends
@@ -169,10 +171,12 @@ This pattern uses objects or sets to collect values/ frequencies of values. This
 
 Multiple pointers (it’s not really an official name)
 
-Creating pointers or values that correspond to an index or position and move towards the beginning, end or middle based on a certain condition. Very efficient for solving problems with minimal space complexity as well
+Creating pointers or values that correspond to an index or position and move towards the beginning, end or middle based on a certain condition. 
+Very efficient for solving problems with minimal space complexity as well
 
 Sliding window
-This pattern involves creating a window which can either be an array or number from one position to another. Depending on a certain condition, the window either increases or closes (and a new window is created). Very useful for keeping track of a subset of data in an array/ string
+This pattern involves creating a window which can either be an array or number from one position to another. 
+Depending on a certain condition, the window either increases or closes (and a new window is created). Very useful for keeping track of a subset of data in an array/ string
 
 Divide and Conquer pattern
 This pattern involves dividing a data set into smaller chunks and then repeating a process with a subset of data. This pattern can tremendously decrease time complexity
@@ -206,7 +210,9 @@ Pure recursion tips
 
 Searching Algorithms
 - Linear search : it’s the best we can do with an unsorted piece of data
-- Binary Search : only works on sorted arrays. The idea is divide and conquer pattern
+- Binary Search : only works on sorted arrays. The idea is divide and conquer pattern. Big O : O(log n)
+- Naive string searching algorithm
+- KMP string searching algorithm
 
 There are many different search methods on arrays in Javascript
 - indexOf
@@ -215,3 +221,30 @@ There are many different search methods on arrays in Javascript
 - findIndex
 
 How do these functions work?
+All of these methods are doing the same thing behind the scenes.
+They’re checking every element one at a time to check if whatever we pass in. 
+They are going through and checking each item to see. It’s called a linear search.  
+---------------------
+
+Sorting Algorithms
+https://visualgo.net/en/sorting
+https://www.toptal.com/developers/sorting-algorithms
+
+
+1. Bubble sort
+2. Selection sort
+3. Insertion sort
+4. Merge sort
+5. Quick sort
+6. Radix sort
+
+Bubble sort : a sorting algorithm where the largest values bubble up to the top
+Bubble sort pseudocode
+- Start looping from the end of the array towards the beginning with a variable called i 
+- Start an inner loop with a variable called j from the beginning until i - 1
+-  If arr[j] is greater than arr[j+1], swap those two values
+- Return the sorted array
+
+What is the time complexity of bubble sort?
+best case: O(n) where the data is nearly sorted 
+worst case: O(n^2). In general, n^2 because we have a nested loop 
