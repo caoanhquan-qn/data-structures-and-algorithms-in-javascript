@@ -1402,10 +1402,46 @@ function selectionSort(arr) {
         minIndex = j;
       }
     }
-    swap(arr, i, minIndex);
+    if (i !== minIndex) {
+      swap(arr, i, minIndex);
+    }
   }
+
   return arr;
 }
 
-console.log(selectionSort([3, 44, 38, 27, 10, 1]));
-console.log(selectionSort([3, 44, 38, 5, 47, 15, 36, 26, 27, 46, 4, 19, 50]));
+// console.log(selectionSort([3, 44, 38, 27, 10, 1]));
+// console.log(selectionSort([3, 44, 38, 5, 47, 15, 36, 26, 27, 46, 4, 19, 50]));
+// console.log(selectionSort([34, 22, 10, 19, 17]));
+
+// insertion sort
+
+function insertionSort(arr) {
+  for (
+    let firstUnsortedIndex = 1;
+    firstUnsortedIndex < arr.length;
+    firstUnsortedIndex++
+  ) {
+    let newElement = arr[firstUnsortedIndex];
+    let i;
+    for (i = firstUnsortedIndex; i > 0 && arr[i - 1] > newElement; i--) {
+      arr[i] = arr[i - 1];
+    }
+    arr[i] = newElement;
+  }
+
+  return arr;
+}
+
+/* 
+
+insertion technique
+
+- create newElement = arr[firstUnsortedIndex] : keep track the value that we're looking at
+- arr[i] = arr[i -1] : move the array forward 1 index 
+
+ */
+
+console.log(insertionSort([20, 35, -15, 7, 55]));
+
+// merge sort

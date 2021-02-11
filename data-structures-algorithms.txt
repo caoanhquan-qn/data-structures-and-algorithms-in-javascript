@@ -230,13 +230,16 @@ Sorting Algorithms
 https://visualgo.net/en/sorting
 https://www.toptal.com/developers/sorting-algorithms
 
-
+[
 1. Bubble sort
 2. Selection sort
 3. Insertion sort
-4. Merge sort
-5. Quick sort
-6. Radix sort
+4. Shell sort ] => elementary sorting algorithms
+[
+5. Merge sort
+6. Quick sort
+7. Radix sort
+8. Heap sort ] => intermediate sorting algorithms
 
 Bubble sort : a sorting algorithm where the largest values bubble up to the top
 Bubble sort pseudocode
@@ -248,3 +251,33 @@ Bubble sort pseudocode
 What is the time complexity of bubble sort?
 best case: O(n) where the data is nearly sorted 
 worst case: O(n^2). In general, n^2 because we have a nested loop 
+
+Selection sort : similar to bubble sort, but instead of first placing large values into sorted position at the end of the array, it places small values into sorted position at the beginning
+
+Selection sort pseudocode
+- Store the first element as the smallest value you’ve seen so far
+- Compare this item to the next item in the array until you find a smaller number
+- If a smaller number is found, designate that smaller number to be the new “minimum” and continue until the end of the array
+- If the “minimum” is not the value (index) you initially began with, swap the two values
+- Repeat this with the next element until the array is sorted
+
+What is the time complexity of selection sort?
+O(n^2)
+selection sort potentially is better than something like bubble sort because we minimize the number of swaps that we’re making
+bubble sort : we’re basically swapping over and over and over to get the largest item to the end, we keep swapping until it goes to the end and the next time through we swap if we need to keep swapping 
+
+selection sort : we iterate we compare a lot but we only make one swap at the end of each loop   
+
+Insertion sort : builds up the sort by gradually creating a larger left half which is always sorted 
+Insertion sort pseudocode
+- Start by picking the second element in the array
+- Now compare the second element with the one before it and swap if necessary
+- Continue to the next element and if it is in the incorrect order, iterate through the sorted portion (i.e. the left side) to place the element in the correct place
+- Repeat until the array is sorted
+
+What is the time complexity of insertion sort?
+O(n^2)
+It works very well if you need your data to be continuously sorted. You have data coming in and you need to re-sort things over and over and maintain a running sort, keep things up-to-date.
+
+Insertion sort is an online algorithm
+Selection sort is an offline algorithm
