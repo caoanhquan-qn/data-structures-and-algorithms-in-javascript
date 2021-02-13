@@ -18,7 +18,7 @@ constant > log n > √n > n > n log n > n^2 > 2^n > n!
 
 option + v : √
 
-best sorting algorithm = O(N log(N))
+best sorting algorithm = O(N log(N)) (such as merge sort, quick sort)
 search a table of N rows = O(N)
 print array of N = O(N)
 
@@ -281,3 +281,26 @@ It works very well if you need your data to be continuously sorted. You have dat
 
 Insertion sort is an online algorithm
 Selection sort is an offline algorithm
+
+Merge sort
+divide and conquer pattern 
+https://www.bigocheatsheet.com/
+
+mergeSort pseudocode
+- Break up the array into halves until you have arrays that are empty or have one element (use slice)
+- Once you have smaller sorted arrays, merge those arrays with other sorted arrays until you are back at the full length of the array
+- Once the array has been merged back together, return the merged and sorted array
+
+What is the time complexity of merge sort?
+O(n log n)
+space complexity : O(n) 
+
+Quick sort
+Quick sort pseudocode
+- Call the pivot helper on the array
+- When the helper returns to you the updated pivot index, recursively call the pivot helper on the subarray to the left of that index, and the subarray to the right of that index
+- Your base case occurs when you consider a subarray with less than 2 elements
+
+What is the time complexity of quick sort?
+O(n log n)
+worst case : O(n^2)

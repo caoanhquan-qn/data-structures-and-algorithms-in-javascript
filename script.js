@@ -67,12 +67,12 @@ console.log(jonas.hasOwnProperty("score")); // true
 
 /*
 
-Write a function which takes in a string and returns counts of each character
+Write a function which takes in a string and returns increments of each character
 in the string
 
 */
 
-// const counter = function (letter, arr) {
+// const incrementer = function (letter, arr) {
 //   let init = 0;
 //   arr.forEach((el) => {
 //     if (el === letter) init++;
@@ -80,7 +80,7 @@ in the string
 //   return init;
 // };
 
-// const charCount = function (str) {
+// const charincrement = function (str) {
 //   let object = {};
 //   const convertToArray = str.toLowerCase().split("");
 //   console.log(convertToArray);
@@ -88,13 +88,13 @@ in the string
 //     // guard clause
 //     if (!(letter.match(/^[0-9a-z]+$/) !== null)) return;
 
-//     object[`${letter}`] = counter(letter, convertToArray);
+//     object[`${letter}`] = incrementer(letter, convertToArray);
 //   });
 
 //   return object;
 // };
 
-// console.log(charCount("Your PIN number is 1234!"));
+// console.log(charincrement("Your PIN number is 1234!"));
 
 // // check if a string is alphanumeric
 
@@ -106,7 +106,7 @@ in the string
 // console.log(isAlphaNumeric("$")); // false
 // console.log(isAlphaNumeric("a")); // true
 
-// function charCount(str) {
+// function charincrement(str) {
 //   let obj = {};
 //   for (let i = 0; i < str.length; i++) {
 //     let char = str[i].toLowerCase();
@@ -121,7 +121,7 @@ in the string
 //   return obj;
 // }
 
-// function charCount(str) {
+// function charincrement(str) {
 //   let obj = {};
 //   for (let char of str) {
 //     char = char.toLowerCase();
@@ -149,7 +149,7 @@ function isAlphaNumeric(char) {
   return true;
 }
 
-function charCount(str) {
+function charincrement(str) {
   let obj = {};
   for (let char of str) {
     if (isAlphaNumeric(char)) {
@@ -163,7 +163,7 @@ function charCount(str) {
   return obj;
 }
 
-console.log(charCount("hellooo!!!! HELLO"));
+console.log(charincrement("hellooo!!!! HELLO"));
 
 /*
 
@@ -202,23 +202,24 @@ second array. The frequency of values must be the same
 //   return true;
 // }
 
-// frequency counter pattern
+// frequency incrementer pattern
 
 function same(arr1, arr2) {
   if (arr1.length !== arr2.length) return false;
-  let frequencyCounter1 = {};
-  let frequencyCounter2 = {};
+  let frequencyincrementer1 = {};
+  let frequencyincrementer2 = {};
   for (let val of arr1) {
-    frequencyCounter1[val] = (frequencyCounter1[val] || 0) + 1;
+    frequencyincrementer1[val] = (frequencyincrementer1[val] || 0) + 1;
   }
 
   for (let val of arr2) {
-    frequencyCounter2[val] = (frequencyCounter2[val] || 0) + 1;
+    frequencyincrementer2[val] = (frequencyincrementer2[val] || 0) + 1;
   }
 
-  for (let key in frequencyCounter1) {
-    if (!(key ** 2 in frequencyCounter2)) return false;
-    if (frequencyCounter2[key ** 2] !== frequencyCounter1[key]) return false;
+  for (let key in frequencyincrementer1) {
+    if (!(key ** 2 in frequencyincrementer2)) return false;
+    if (frequencyincrementer2[key ** 2] !== frequencyincrementer1[key])
+      return false;
   }
   return true;
 }
@@ -323,34 +324,34 @@ console.log(sumZero([1, 2, 3])); // undefined
 
 /* 
 
-Implement a function called countUniqueValues, which accepts a sorted array and
-counts the unique values in the array. There can be negative numbers in the 
+Implement a function called incrementUniqueValues, which accepts a sorted array and
+increments the unique values in the array. There can be negative numbers in the 
 array, but it will always be sorted 
 
 */
 
 console.log("///////////////");
 
-// function countUniqueValues(arr) {
+// function incrementUniqueValues(arr) {
 //   if (arr.length === 0) return 0;
 
 //   let left1 = 0;
 //   let left2 = 1;
-//   let count = 1;
+//   let increment = 1;
 //   while (left2 < arr.length) {
 //     if (arr[left1] === arr[left2]) {
 //       left1++;
 //       left2++;
 //     } else {
-//       count++;
+//       increment++;
 //       left1++;
 //       left2++;
 //     }
 //   }
-//   return count;
+//   return increment;
 // }
 
-function countUniqueValues(arr) {
+function incrementUniqueValues(arr) {
   if (arr.length === 0) return 0;
 
   let left1 = 0;
@@ -368,11 +369,11 @@ function countUniqueValues(arr) {
   return left1 + 1;
 }
 
-console.log(countUniqueValues([1, 1, 1, 1, 1, 2])); // 2
-console.log(countUniqueValues([1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13])); // 7
-console.log(countUniqueValues([])); // 0
-console.log(countUniqueValues([-2, -1, -1, 0, 1])); // 4
-console.log(countUniqueValues([9])); // 1
+console.log(incrementUniqueValues([1, 1, 1, 1, 1, 2])); // 2
+console.log(incrementUniqueValues([1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13])); // 7
+console.log(incrementUniqueValues([])); // 0
+console.log(incrementUniqueValues([-2, -1, -1, 0, 1])); // 4
+console.log(incrementUniqueValues([9])); // 1
 
 console.log("///////////////");
 
@@ -537,12 +538,12 @@ console.log("///////////////");
 
 Implement a function called , areThereDuplicates which accepts a variable number
 of arguments and checks whether there are any duplicates among the arguments
-passed in. You can solve this using the frequency counter pattern or multiple pointers 
+passed in. You can solve this using the frequency incrementer pattern or multiple pointers 
 pattern
 
  */
 
-// frequency counter pattern
+// frequency incrementer pattern
 
 // function areThereDuplicates(...arr) {
 //   let obj = {};
@@ -795,16 +796,16 @@ function factorial(num) {
 console.log(factorial(4));
 console.log(factorial(5));
 
-// countdown by recursion
-function countdown(num) {
+// incrementdown by recursion
+function incrementdown(num) {
   if (num < 0) {
     console.log("All done!!!");
     return "All done. Congratulations!!!";
   }
   console.log(num);
-  return countdown(num - 1);
+  return incrementdown(num - 1);
 }
-console.log(countdown(6));
+console.log(incrementdown(6));
 
 // helper method recursion
 
@@ -1329,11 +1330,11 @@ function binarySearch(arr, num) {
 }
 
 /* Naive string search
-Suppose you want to count the number of times a smaller string appears in a longer
+Suppose you want to increment the number of times a smaller string appears in a longer
 string  */
 
-function countFrequency(largerStr, smallerStr) {
-  let count = 0;
+function incrementFrequency(largerStr, smallerStr) {
+  let increment = 0;
   let largeLen = largerStr.length;
   let smallLen = smallerStr.length;
 
@@ -1343,14 +1344,14 @@ function countFrequency(largerStr, smallerStr) {
         break INNER;
       }
       if (j === smallLen - 1) {
-        count++;
+        increment++;
       }
     }
   }
-  return count;
+  return increment;
 }
 
-// console.log(countFrequency("caoanhquan", "an"));
+// console.log(incrementFrequency("caoanhquan", "an"));
 
 /* ----------Sorting Algorithms----------- */
 
@@ -1442,6 +1443,93 @@ insertion technique
 
  */
 
-console.log(insertionSort([20, 35, -15, 7, 55]));
+// console.log(insertionSort([20, 35, -15, 7, 55]));
+console.log("///////////////");
 
 // merge sort
+/* 
+Merge two sorted arrays
+Given two sorted arrays, the task is to merge them in a sorted manner
+
+Input: arr1 = [1,3,4,5] and arr2 =[2,4,6,8]
+Output: arr3 =[1,2,3,4,4,5,6,8]
+*/
+
+// merge helper
+function mergingArray(arr1, arr2) {
+  let arr = [];
+  let i = 0,
+    j = 0;
+
+  // traverse both array
+  while (i < arr1.length && j < arr2.length) {
+    if (arr1[i] < arr2[j]) {
+      arr.push(arr1[i]);
+      i++;
+    } else {
+      arr.push(arr2[j]);
+      j++;
+    }
+  }
+
+  // store remaining elements of first array
+  while (i < arr1.length) {
+    arr.push(arr1[i]);
+    i++;
+  }
+  // store remaining elements of second array
+  while (j < arr2.length) {
+    arr.push(arr2[j]);
+    j++;
+  }
+
+  return arr;
+}
+
+// console.log(mergingArray([1, 3, 4, 5], [2, 4, 6, 8]));
+
+function mergeSort(arr) {
+  if (arr.length <= 1) return arr;
+
+  let middle = Math.floor(arr.length / 2);
+  let left = mergeSort(arr.slice(0, middle));
+  let right = mergeSort(arr.slice(middle));
+
+  return mergingArray(left, right);
+}
+// console.log(mergeSort([12, 11, 13, 5, 6, 7]));
+
+// quick sort
+
+// pivot helper
+function pivot(arr, start = 0, end = arr.length - 1) {
+  const swap = function (arr, index1, index2) {
+    [arr[index1], arr[index2]] = [arr[index2], arr[index1]];
+  };
+  let pivotIndex = start;
+  let pivotValue = arr[start];
+
+  for (let i = start + 1; i <= end; i++) {
+    if (arr[i] < pivotValue) {
+      pivotIndex++;
+      swap(arr, pivotIndex, i);
+    }
+  }
+  swap(arr, start, pivotIndex);
+  return pivotIndex;
+}
+
+console.log(pivot([5, 2, 1, 8, 4, 7, 6, 3])); //4
+console.log(pivot([11, 10, 40, 50, 6])); // 2
+
+function quickSort(arr, start = 0, end = arr.length - 1) {
+  if (start < end) {
+    let index = pivot(arr, start, end);
+    quickSort(arr, start, index - 1);
+    quickSort(arr, index + 1, end);
+  }
+
+  return arr;
+}
+
+console.log(quickSort([5, 2, 1, 8, 4, 7, 6, 3]));
