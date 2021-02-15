@@ -1576,3 +1576,54 @@ function radixSort(arr) {
 console.log(radixSort([3221, 2, 10, 9680, 577]));
 
 /* data structures */
+
+// singly linked list
+
+class Node {
+  constructor(val) {
+    this.val = val;
+    this.next = null;
+  }
+}
+
+class SinglyLinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+  push(val) {
+    let newNode = new Node(val);
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = this.head;
+    } else {
+      this.tail.next = newNode;
+      this.tail = newNode;
+    }
+    this.length++;
+    return this;
+  }
+
+  pop() {
+    if (!this.head) return undefined;
+    if (this.length === 1) {
+      let popped = this.head;
+      this.head = this.tail = null;
+      this.length = 0;
+      return popped;
+    }
+
+    let current = this.head;
+    let secondLast;
+    while (current.next) {
+      secondLast = current;
+      current = current.next;
+    }
+    secondLast.next = null;
+    this.tail = secondLast;
+    this.length--;
+    return current;
+  }
+}
+let list = new SinglyLinkedList();
