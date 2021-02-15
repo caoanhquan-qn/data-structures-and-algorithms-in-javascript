@@ -1533,3 +1533,46 @@ function quickSort(arr, start = 0, end = arr.length - 1) {
 }
 
 console.log(quickSort([5, 2, 1, 8, 4, 7, 6, 3]));
+
+/* 
+radix sort
+radix = base
+*/
+
+// radix helper method
+// find the digit in [num] at the given [place] value
+function getDigit(num, place) {
+  return Math.floor(Math.abs(num) / Math.pow(10, place)) % 10;
+}
+// find the number of digits in [num]
+function digitCount(num) {
+  const numString = Math.abs(num).toString();
+  return numString.length;
+}
+
+//find the number of digits in the largest numbers in the list
+function mostDigits(arr) {
+  let max = -Infinity;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > max) {
+      max = arr[i];
+    }
+  }
+  return digitCount(max);
+}
+
+function radixSort(arr) {
+  const maxDigitCount = mostDigits(arr);
+  for (let k = 0; k < maxDigitCount; k++) {
+    let bucket = [...Array(10)].map(() => []);
+    for (let i = 0; i < arr.length; i++) {
+      bucket[getDigit(arr[i], k)].push(arr[i]);
+    }
+    arr = bucket.flat(1);
+  }
+  return arr;
+}
+
+console.log(radixSort([3221, 2, 10, 9680, 577]));
+
+/* data structures */
