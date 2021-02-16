@@ -1625,5 +1625,105 @@ class SinglyLinkedList {
     this.length--;
     return current;
   }
+  shift() {
+    if (!this.head) return undefined;
+    if (this.length === 1) {
+      let shifted = this.head;
+      this.head = this.tail = null;
+      this.length = 0;
+      return shifted;
+    }
+    let currentHead = this.head;
+    this.head = this.head.next;
+    this.length--;
+    return currentHead;
+  }
+  unshift(val) {
+    let newNode = new Node(val);
+    if (!this.head) {
+      this.head = this.tail = newNode;
+    } else {
+      newNode.next = this.head;
+      this.head = newNode;
+    }
+    this.length++;
+    return this;
+  }
+  get(index) {
+    if (index < 0 || index >= this.length) return null;
+    let counter = 0;
+    let current = this.head;
+    while (counter < index) {
+      current = current.next;
+      counter++;
+    }
+    return current;
+  }
+  set(index, value) {
+    let foundNode = this.get(index);
+    if (foundNode) {
+      foundNode.val = value;
+      return true;
+    }
+    return false;
+  }
+  insert(index, value) {
+    if (index < 0 || index > this.length) return false;
+    if (index === this.length) {
+      return !!this.push(value);
+    }
+    if (index === 0) {
+      return !!this.unshift(value);
+    }
+    let newNode = new Node(value);
+    let nextToIndex = this.get(index - 1);
+    newNode.next = nextToIndex.next;
+    nextToIndex.next = newNode;
+    this.length++;
+    return true;
+  }
+  remove(index) {
+    if (index < 0 || index >= this.length) return undefined;
+    if (index === 0) {
+      return this.shift();
+    }
+    if (index === this.length - 1) {
+      return this.pop();
+    }
+
+    let prevNode = this.get(index - 1);
+    let removedNode = prevNode.next;
+    prevNode.next = removedNode.next;
+    this.length--;
+    return removedNode;
+  }
+  // common Javascript interview question
+  reverse() {
+    this.tail = this.head;
+    let next;
+    let prev;
+    let current = this.head;
+    while (current) {
+      next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+    }
+    this.head = prev;
+    return this;
+  }
+  print() {
+    let arr = [];
+    let current = this.head;
+    while (current) {
+      arr.push(current.val);
+      current = current.next;
+    }
+    return arr;
+  }
 }
 let list = new SinglyLinkedList();
+list.push("you");
+list.push("are");
+list.push("welcome");
+list.push("!!!");

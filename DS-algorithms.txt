@@ -329,11 +329,14 @@ Singly Linked List
 ---------------------
 
 It’s a data structure that stores whatever data you want such as strings, numbers. It’s ordered. 
-It’s a list of data just like an array. But there’s a really big distinction in an array.
+It’s a list of data just like an array. But there’s a really big distinction.
 A data structure that contains a head, tail, and length property. 
 Linked lists consist of nodes and each node has a value and a pointer to another node or null.
 A node stores a piece of data like a string or a number but it also references the next node. 
-Singly linked list comes from the fact that each node is only connected one directionally to the next node 
+Singly linked list comes from the fact that each node is only connected one directionally to the next node.
+One of the things that linked lists are good at is insertion and deletion. 
+One of the main reasons you would want to use linked lists is that you really care about insertion and deletion, 
+especially if you’re working with really long piece of data and you don’t need random access.
 
 Comparison with arrays
 
@@ -345,3 +348,50 @@ Arrays
 - Indexed in order 
 - Insertion and deletion can be expensive
 - Can quickly be accessed at a specific index
+
+Singly linked list methods
+- push(val) : adding a new node to the end of the linked list
+- pop() : removing a node from the end of the linked list
+- shift() : removing a node from the beginning of the linked list 
+
+pushing pseudocode
+- This function should accept a value
+- Create a new node using the value passed to the function
+- If there is no head property on the list, set the head and tail to be the newly created node
+- Otherwise set the next property on the tail to be the new node and set the tail property on the list to be the newly created node
+- Increment the length by 1
+- Return the linked list
+
+popping pseudocode
+- If there are no nodes in the list, return undefined
+- Check if this.length === 1 (edge case)
+- Loop through the list until you reach the tail
+- Set the next property of the 2nd to last node to be null
+- Set the tail to be the 2nd to last node
+- Decrement the length of the list by 1
+- Return the value of the node removed
+
+shifting pseudocode
+- If there are no nodes, return undefined
+- Store the current head property in a variable
+- Set the head property to be the current head’s next property
+- Decrement the length by 1
+- Return the value of the node removed
+
+Big O of Singly Linked List
+Insertion - O(1)
+Removal - It depends ... O(1) or O(n)
+Searching - O(n)
+Access - O(n)
+---------------------
+
+Big O of Array
+Insertion -  It depends ... O(1) or O(n)
+Removal -  It depends ... O(1) or O(n)
+Searching - O(n)
+Access - O(1)
+
+Recap
+- Singly linked lists are an excellent alternative to arrays when insertion and deletion at the beginning are frequently required
+- Arrays contain a built-in index whereas linked lists don’t
+- The idea of a list data structure that consists of nodes is the foundation for other data structures like stacks and queues
