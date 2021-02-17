@@ -770,10 +770,34 @@ returns the length of the longest substring with all distinct characters
 
 */
 
-function findLongestSubstring(str) {}
-// console.log(findLongestSubstring("rithmschool"));
+function findLongestSubstring(str) {
+  let i = 0;
+  let j = 0;
+  let set = new Set();
+  let n = str.length;
+  let longest = 0;
+  while (i < n && j < n) {
+    if (!set.has(str[j])) {
+      set.add(str[j]);
+      j++;
+      longest = Math.max(longest, j - i);
+    } else {
+      set.delete(str[i]);
+      i++;
+    }
+  }
+  return longest;
+}
 
-/*  Recursion */
+// console.log(findLongestSubstring("")); //0
+// console.log(findLongestSubstring("rithmschool")); //7
+// console.log(findLongestSubstring("thisisawesome")); //6
+// console.log(findLongestSubstring("thecatinthehat")); //7
+// console.log(findLongestSubstring("bbbb")); //1
+// console.log(findLongestSubstring("longestsubstring")); //8
+// console.log(findLongestSubstring("thisishowwedoit")); //6
+
+/*  ---Recursion--- */
 
 // factorial
 
