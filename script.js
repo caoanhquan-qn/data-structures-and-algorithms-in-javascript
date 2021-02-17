@@ -1751,3 +1751,5 @@ list.push("you");
 list.push("are");
 list.push("welcome");
 list.push("!!!");
+
+// doubly linked list
