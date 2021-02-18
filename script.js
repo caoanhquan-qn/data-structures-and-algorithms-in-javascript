@@ -1753,3 +1753,170 @@ list.push("welcome");
 list.push("!!!");
 
 // doubly linked list
+
+class DoublyNode {
+  constructor(val) {
+    this.val = val;
+    this.next = null;
+    this.prev = null;
+  }
+}
+class DoublyLinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+  push(val) {
+    let newNode = new DoublyNode(val);
+    if (!this.head) {
+      this.head = this.tail = newNode;
+    } else {
+      this.tail.next = newNode;
+      newNode.prev = this.tail;
+      this.tail = newNode;
+    }
+    this.length++;
+    return this;
+  }
+  pop() {
+    if (!this.head) return undefined;
+    if (this.length === 1) {
+      let popped = this.head;
+      this.head = this.tail = null;
+      this.length = 0;
+      return popped;
+    }
+    let currentTail = this.tail;
+    this.tail = currentTail.prev;
+    this.tail.next = null;
+    currentTail.prev = null;
+    this.length--;
+    return currentTail;
+  }
+  shift() {
+    if (!this.head) return undefined;
+    if (this.length === 1) {
+      let shifted = this.head;
+      this.head = this.tail = null;
+      this.length = 0;
+      return shifted;
+    }
+    let currentHead = this.head;
+    this.head = currentHead.next;
+    this.head.prev = null;
+    currentHead.next = null;
+    this.length--;
+    return currentHead;
+  }
+  unshift(val) {
+    let newNode = new DoublyNode(val);
+    if (!this.head) {
+      this.head = this.tail = newNode;
+    } else {
+      newNode.next = this.head;
+      this.head.prev = newNode;
+      this.head = newNode;
+    }
+    this.length++;
+    return this;
+  }
+  get(index) {
+    if (index < 0 || index >= this.length) return null;
+    const indexToHead = index;
+    const indexToTail = this.length - 1 - index;
+    let counter = 0;
+    let current;
+    if (indexToHead <= indexToTail) {
+      current = this.head;
+      while (counter < indexToHead) {
+        current = current.next;
+        counter++;
+      }
+    } else {
+      current = this.tail;
+      while (counter < indexToTail) {
+        current = current.prev;
+        counter++;
+      }
+    }
+    return current;
+  }
+  set(index, value) {
+    let foundNode = this.get(index);
+    if (foundNode) {
+      foundNode.val = value;
+      return true;
+    }
+    return false;
+  }
+  insert(index, value) {
+    if (index < 0 || index > this.length) return false;
+    if (index === this.length) {
+      return !!this.push(value);
+    }
+    if (index === 0) {
+      return !!this.unshift(value);
+    }
+    let newNode = new DoublyNode(value);
+    let indexNode = this.get(index);
+    newNode.next = indexNode;
+    newNode.prev = indexNode.prev;
+    indexNode.prev.next = newNode;
+    indexNode.prev = newNode;
+    this.length++;
+    return true;
+  }
+  remove(index) {
+    if (index < 0 || index >= this.length) return undefined;
+    if (index === 0) {
+      return this.shift();
+    }
+    if (index === this.length - 1) {
+      return this.pop();
+    }
+    let removedNode = this.get(index);
+    let prevNode = removedNode.prev;
+    prevNode.next = removedNode.next;
+    removedNode.next.prev = prevNode;
+    removedNode.next = null;
+    removedNode.prev = null;
+    this.length--;
+    return removedNode;
+  }
+  reverse() {
+    let current = this.head;
+    this.tail = current;
+    let temp;
+
+    // swap next and prev of all nodes of doubly linked list
+
+    while (current) {
+      temp = current.prev;
+      current.prev = current.next;
+      current.next = temp;
+      current = current.prev;
+    }
+    if (temp) {
+      this.head = temp.prev;
+    }
+    return this;
+  }
+
+  print() {
+    let arr = [];
+    let current = this.head;
+    while (current) {
+      arr.push(current.val);
+      current = current.next;
+    }
+    return arr;
+  }
+}
+let doublyLinkedList = new DoublyLinkedList();
+doublyLinkedList.push("wishing");
+doublyLinkedList.push("you");
+doublyLinkedList.push("a");
+doublyLinkedList.push("happy");
+doublyLinkedList.push("new");
+doublyLinkedList.push("year");
