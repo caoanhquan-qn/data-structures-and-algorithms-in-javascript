@@ -1616,6 +1616,7 @@ class SinglyLinkedList {
     this.tail = null;
     this.length = 0;
   }
+  // time complexity : O(1)
   push(val) {
     let newNode = new Node(val);
     if (!this.head) {
@@ -1629,6 +1630,7 @@ class SinglyLinkedList {
     return this;
   }
 
+  // time complexity : O(n)
   pop() {
     if (!this.head) return undefined;
     if (this.length === 1) {
@@ -1649,6 +1651,8 @@ class SinglyLinkedList {
     this.length--;
     return current;
   }
+
+  // time complexity : O(1)
   shift() {
     if (!this.head) return undefined;
     if (this.length === 1) {
@@ -1658,10 +1662,13 @@ class SinglyLinkedList {
       return shifted;
     }
     let currentHead = this.head;
-    this.head = this.head.next;
+    this.head = currentHead.next;
+    currentHead.next = null;
     this.length--;
     return currentHead;
   }
+
+  // time complexity : O(1)
   unshift(val) {
     let newNode = new Node(val);
     if (!this.head) {
@@ -1920,3 +1927,130 @@ doublyLinkedList.push("a");
 doublyLinkedList.push("happy");
 doublyLinkedList.push("new");
 doublyLinkedList.push("year");
+
+// stack
+class StackNode {
+  constructor(val) {
+    this.val = val;
+    this.next = null;
+  }
+}
+class Stack {
+  constructor() {
+    this.first = null;
+    this.last = null;
+    this.size = 0;
+  }
+
+  /* add to the beginning, time complexity: O(1) */
+  push(val) {
+    let newNode = new StackNode(val);
+    if (!this.first) {
+      this.first = this.last = newNode;
+    } else {
+      newNode.next = this.first;
+      this.first = newNode;
+    }
+    return ++this.size;
+  }
+
+  /* remove from the beginning, time complexity: O(1) */
+  pop() {
+    if (!this.first) return null;
+    let current = this.first;
+    if (this.size === 1) {
+      this.first = this.last = null;
+      this.size = 0;
+      return current.val;
+    }
+    this.first = current.next;
+    current.next = null;
+    this.size--;
+    return current.val;
+  }
+
+  print() {
+    const arr = [];
+    let current = this.first;
+    while (current) {
+      arr.push(current.val);
+      current = current.next;
+    }
+    return arr;
+  }
+}
+let stack = new Stack();
+
+// queue
+
+class QueueNode {
+  constructor(val) {
+    this.val = val;
+    this.next = null;
+  }
+}
+
+class Queue {
+  constructor() {
+    this.first = null;
+    this.last = null;
+    this.size = 0;
+  }
+
+  /* 
+
+  enqueue : to add an item to a queue
+  add to the end, time complexity O(1)
+  similar to push(val) in singly linked list
+
+   */
+
+  enqueue(val) {
+    let newNode = new QueueNode(val);
+    if (!this.first) {
+      this.first = this.last = newNode;
+    } else {
+      this.last.next = newNode;
+      this.last = newNode;
+    }
+    return ++this.size;
+  }
+
+  /*  
+ 
+  dequeue : to remove from a queue
+  remove from the beginning, time complexity: O(1) 
+  similar to shift() in singly linked list
+
+  */
+  dequeue() {
+    if (!this.first) return null;
+    let current = this.first;
+    if (this.size === 1) {
+      this.first = this.last = null;
+      this.size = 0;
+      return current.val;
+    }
+    this.first = current.next;
+    current.next = null;
+    this.size--;
+    return current.val;
+  }
+  print() {
+    const arr = [];
+    let current = this.first;
+    while (current) {
+      arr.push(current.val);
+      current = current.next;
+    }
+    return arr;
+  }
+}
+
+/* 
+
+additionally, we can add to the beginning and remove from the end 
+but that isn't efficient
+
+*/
+let queue = new Queue();
