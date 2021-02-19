@@ -1337,21 +1337,23 @@ and returns the index at which the value exists. Otherwise, return -1
 */
 
 function binarySearch(arr, num) {
-  let i = 0;
-  let j = arr.length - 1;
-  while (i <= j) {
-    const middle = Math.floor((i + j) / 2);
+  let start = 0;
+  let end = arr.length - 1;
+  let middle;
+  while (start <= end) {
+    middle = Math.floor((start + end) / 2);
     const currentMiddle = arr[middle];
     if (currentMiddle === num) return middle;
     if (currentMiddle < num) {
-      i = middle + 1;
-    }
-    if (currentMiddle > num) {
-      j = middle - 1;
+      start = middle + 1;
+    } else {
+      end = middle - 1;
     }
   }
   return -1;
 }
+
+// console.log(binarySearch([2, 5, 6, 9, 13, 15, 28, 30], 9));
 
 /* Naive string search
 Suppose you want to increment the number of times a smaller string appears in a longer
