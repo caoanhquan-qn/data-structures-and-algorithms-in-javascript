@@ -18,16 +18,7 @@ big O time complexity
 constant > log n > √n > n > n log n > n^2 > 2^n > n! 
 
 option + v : √
-
-best sorting algorithm = O(N log(N)) (such as merge sort, quick sort)
-search a table of N rows = O(N)
 print array of N = O(N)
-
-b-tree : the core of most databases implementations 
-b-tree : a self-balancing tree data structures that keeps data sorted and allows searches, sequential access, insertions and deletions in logarithmic time. 
-It is commonly used in databases and filesystems
-
-b-tree of order m = 3, meaning a node has at most 3 children 
 
 space complexity 
 ---------------------
@@ -210,7 +201,7 @@ Pure recursion tips
 ---------------------
 
 Searching Algorithms
-- Linear search : it’s the best we can do with an unsorted piece of data
+- Linear search : it’s the best we can do with an unsorted piece of data. For example, search a table of N rows = O(n)
 - Binary Search : only works on sorted arrays. The idea is divide and conquer pattern. Big O : O(log n)
 - Naive string searching algorithm
 - KMP string searching algorithm
@@ -339,6 +330,7 @@ space complexity : O(n + k)
 n = length of array
 k = number of digits 
 
+best sorting algorithm = O(n log(n)) (such as merge sort, quick sort)
 ---------------------
 
 Singly Linked List
@@ -651,3 +643,83 @@ Recap
 - Queues are a FIFO data structure, all elements are first in first out
 - Queues are useful for processing tasks and are foundational for more complex data structures
 - Insertion and removal can be done in O(1)
+
+---------------------
+Trees
+---------------------
+https://www.freecodecamp.org/news/all-you-need-to-know-about-tree-data-structures-bceacb85490c/
+
+A data structure that consists of nodes in a parent/ child relationship
+Linked List : linear data structure
+Tree : non-linear data structure
+Tree terminology
+- root : the top node in a tree
+- child : a node directly connected to another node when moving away from the root
+- parent : the converse notion of a child
+- siblings : a group of nodes with the same parent
+- leaf : a node with no children
+- edge : the connection between one node and another
+
+Trees - lots of different applications
+- HTML DOM
+- Network routing
+- Abstract syntax tree
+- Artificial Intelligence
+- Folders in operating systems
+- Computer file systems
+
+Trees
+---------------------
+
+Binary trees
+
+Binary tree is a special type of tree. It has a special condition. Each node can have at most two children at the binary part. So it can have 0 children, can have 1 child, and can have 2 children. So the root node usually would have 2 and then each node could have 2 or could have 1 or it could have 0 but it can’t have 3. 
+
+Binary trees have some special properties that make them easier to navigate 
+---------------------
+Binary search trees
+Binary search trees are a special type of a binary tree. And they excel as you can imagine from the title at searching. We store sorted data in a particular way. 
+Binary search tree makes it easier to retrieve 
+They are sorted in a particular way, they are kept in an order. BST(Binary Search Tree) are used to store data that can be compared. That is sortable.
+
+How BSTS work?
+- Every parent node has at most 2 children 
+- Every node to the left of a parent node is always less than the parent
+- Every node to the right of a parent node is always greater than the parent 
+
+BST: insert
+inserting pseudocode
+steps - iteratively or recursively
+- Create a new node
+- Starting at the root
+- Check if there is a root, if not - the root now becomes that new node
+- If there is a root, check if the value of the new node is greater than or less than the value of the root
+- If it is greater, check to see if there is node to the right. If there is, move to that node and repeat these steps. If there is not, add that node as the right property (exit the loop)
+- If it is less, check to see if there is a node to the left. If there is, move to that node and repeat these steps. If there is not, add that node as the left property (exit the loop)
+- Return the entire tree at the very end
+
+https://www.geeksforgeeks.org/implementation-binary-search-tree-javascript/
+Recursively
+
+BST: find
+finding a node in a BST
+steps - iteratively or recursively
+- Start at the root
+- Check if there is a root, if not - we’ve done searching 
+- If there is a root, check if the value of the new node is the value we are looking for. If we found it, we’re done
+- If not, check to see if the value is greater than or less than the value of the root 
+- If it is greater, check to see if there is a node to the right. If there is, move to that node and repeat these steps. If there is not, we’ve done searching
+- If it is less, check to see if there is a node to the left. If there is, move to that node and repeat these steps. If there is not, we’ve done searching
+
+Big O of BST
+Insertion - O(log n)
+Searching - O(log n)
+
+but NOT guaranteed
+
+the worst case: O(n)
+---------------------
+b-tree : the core of most databases implementations 
+b-tree : a self-balancing tree data structures that keeps data sorted and allows searches, sequential access, insertions and deletions in logarithmic time. It is commonly used in databases and filesystems
+
+b-tree of order m = 3, meaning a node has at most 3 children 

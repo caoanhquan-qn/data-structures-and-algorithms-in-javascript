@@ -1342,9 +1342,8 @@ function binarySearch(arr, num) {
   let middle;
   while (start <= end) {
     middle = Math.floor((start + end) / 2);
-    const currentMiddle = arr[middle];
-    if (currentMiddle === num) return middle;
-    if (currentMiddle < num) {
+    if (arr[middle] === num) return middle;
+    if (arr[middle] < num) {
       start = middle + 1;
     } else {
       end = middle - 1;
@@ -1353,7 +1352,7 @@ function binarySearch(arr, num) {
   return -1;
 }
 
-// console.log(binarySearch([2, 5, 6, 9, 13, 15, 28, 30], 9));
+console.log(binarySearch([2, 5, 6, 9, 13, 15, 28, 30], 9));
 
 /* Naive string search
 Suppose you want to increment the number of times a smaller string appears in a longer
@@ -2056,3 +2055,88 @@ but that isn't efficient
 
 */
 let queue = new Queue();
+
+// Binary Search Tree
+class BSTNode {
+  constructor(val) {
+    this.val = val;
+    this.left = null;
+    this.right = null;
+  }
+}
+class BinarySearchTree {
+  constructor() {
+    this.root = null;
+  }
+  insert(val) {
+    let newNode = new BSTNode(val);
+
+    if (!this.root) {
+      this.root = newNode;
+      return this;
+    }
+
+    let current = this.root;
+    while (true) {
+      if (val === current.val) return undefined;
+      if (val < current.val) {
+        if (current.left === null) {
+          current.left = newNode;
+          return this;
+        } else {
+          current = current.left;
+        }
+      } else if (val > current.val) {
+        if (current.right === null) {
+          current.right = newNode;
+          return this;
+        } else {
+          current = current.right;
+        }
+      }
+    }
+  }
+  includes(val) {
+    if (!this.root) return false;
+
+    let current = this.root;
+    while (true) {
+      if (current.val === val) return true;
+      if (current.val > val) {
+        current = current.left;
+      } else {
+        current = current.right;
+      }
+      if (current === null) return false;
+    }
+  }
+  find(val) {
+    if (!this.root) return undefined;
+
+    let current = this.root;
+    while (true) {
+      if (current.val === val) return current;
+      if (current.val > val) {
+        current = current.left;
+      } else {
+        current = current.right;
+      }
+      if (current === null) return undefined;
+    }
+  }
+
+  //search for a node with a minimum value starting from node
+  findMinNode(val) {
+    let current = this.find(val);
+    if (!current) return undefined;
+    while (true) {
+      if (current.left === null) {
+        return current;
+      } else {
+        current = current.left;
+      }
+    }
+  }
+}
+
+let tree = new BinarySearchTree();
