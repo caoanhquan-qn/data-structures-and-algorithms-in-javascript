@@ -723,3 +723,64 @@ b-tree : the core of most databases implementations
 b-tree : a self-balancing tree data structures that keeps data sorted and allows searches, sequential access, insertions and deletions in logarithmic time. It is commonly used in databases and filesystems
 
 b-tree of order m = 3, meaning a node has at most 3 children 
+
+---------------------
+Tree traversal
+https://en.wikipedia.org/wiki/Tree_traversal
+
+Two ways:
+- Breadth-first search (BFS)
+- Depth-first search (DFS)
+DFS
+- Inorder
+- Pre-order
+- Post-order
+
+BFS 
+steps - iteratively
+- Create a queue (this can be an array) and a variable to store the values of nodes visited 
+- Place the root node in the queue
+- Loop as long as there is anything in the queue
+- Dequeue a node from the queue and push the value of the node into the variable that stores the nodes
+- If there is a left property on the node dequeued - add it to the queue
+- If there is a right property on the node dequeued - add it to the queue
+- Return the variable that stores the values
+
+DFS - PreOrder
+Steps - Recursively
+- Create a variable to store the values of nodes visited
+- Store the root of the BST in a variable called current
+- Write a helper function which accepts a node
+- Push the value of the node to the variable that stores the values
+- If the node has a left property, call the helper function with the left property on the node
+- If the node has a right property, call the helper function with the right property on the node
+- Invoke the helper function with the current variable
+- Return the array of values
+
+DFS - PostOrder
+Steps - Recursively
+- Create a variable to store the values of nodes visited
+- Store the root of the BST in a variable called current
+- Write a helper function which accepts a node
+- If the node has a left property, call the helper function with the left property on the node
+- If the node has a right property, call the helper function with the right property on the node
+- Push the value of the node to the variable that stores the values
+- Invoke the helper function with the current variable
+- Return the array of values 
+
+DFS - InOrder
+Steps - Recursively
+- Create a variable to store the values of nodes visited
+- Store the root of the BST in a variable called current 
+- Write a helper function which accepts a node
+- If the node has a left property, call the helper function with the left property on the node
+- Push the value of the node to the variable that stores the values
+- If the node has a right property, call the helper function with the right property on the node
+- Invoke the helper function with the current variable
+- Return the array of values 
+
+Recap
+- Trees are non-linear data structures that contain a root and child nodes
+- Binary trees can have values of any type, but at most two children for each parent
+- Binary search trees are a more specific version of binary trees where every node to the left of a parent is less than its value and every node to the right is greater 
+- We can search through trees using BFS and DFS

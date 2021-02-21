@@ -2137,6 +2137,73 @@ class BinarySearchTree {
       }
     }
   }
+  bfs() {
+    let queue = [],
+      visited = [];
+    if (this.root === null) return [];
+    queue.push(this.root);
+    while (queue.length !== 0) {
+      const dequeued = queue.shift();
+      visited.push(dequeued.val);
+      if (dequeued.left) {
+        queue.push(dequeued.left);
+      }
+      if (dequeued.right) {
+        queue.push(dequeued.right);
+      }
+    }
+
+    return visited;
+  }
+  dfs_PreOrder() {
+    let visited = [];
+    let current = this.root;
+    if (!current) return [];
+    function preOrder(node) {
+      visited.push(node.val);
+      if (node.left) {
+        preOrder(node.left);
+      }
+      if (node.right) {
+        preOrder(node.right);
+      }
+    }
+    preOrder(current);
+    return visited;
+  }
+  dfs_PostOrder() {
+    let visited = [];
+    let current = this.root;
+    if (!current) return [];
+    function postOrder(node) {
+      if (node.left) postOrder(node.left);
+      if (node.right) postOrder(node.right);
+      visited.push(node.val);
+    }
+    postOrder(current);
+    return visited;
+  }
+  dfs_InOrder() {
+    let visited = [];
+    let current = this.root;
+    if (!current) return [];
+    function postOrder(node) {
+      if (node.left) postOrder(node.left);
+      visited.push(node.val);
+      if (node.right) postOrder(node.right);
+    }
+    postOrder(current);
+    return visited;
+  }
 }
 
 let tree = new BinarySearchTree();
+tree.insert(10);
+tree.insert(3);
+tree.insert(9);
+tree.insert(22);
+tree.insert(35);
+tree.insert(85);
+tree.insert(77);
+tree.insert(2);
+tree.insert(19);
