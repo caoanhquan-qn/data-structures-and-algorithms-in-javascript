@@ -2207,3 +2207,98 @@ tree.insert(85);
 tree.insert(77);
 tree.insert(2);
 tree.insert(19);
+
+// Binary Heap
+class MaxBinaryHeap {
+  constructor() {
+    this.values = [55, 39, 41, 18, 27, 12, 33];
+  }
+  insert(val) {
+    this.values.push(val);
+    let index = this.values.length - 1;
+    let parentIndex = Math.floor((index - 1) / 2);
+    let temp;
+    while (this.values[index] > this.values[parentIndex]) {
+      temp = this.values[parentIndex];
+      this.values[parentIndex] = this.values[index];
+      this.values[index] = temp;
+      index = parentIndex;
+      parentIndex = Math.floor((index - 1) / 2);
+    }
+    return this.values;
+  }
+
+  extractMax() {
+    if (this.values.length === 0) return undefined;
+    const swap = function (arr, index1, index2) {
+      [arr[index1], arr[index2]] = [arr[index2], arr[index1]];
+    };
+    swap(this.values, 0, this.values.length - 1);
+    let result = this.values.pop();
+    if (this.values.length === 2) {
+      let max = Math.max(this.values[0], this.values[1]);
+      let min = Math.min(this.values[0], this.values[1]);
+      this.values[0] = max;
+      this.values[1] = min;
+      return result;
+    }
+    let start = 0;
+    let leftChild = 2 * start + 1;
+    let rightChild = 2 * start + 2;
+
+    while (leftChild < this.values.length && rightChild < this.values.length) {
+      if (
+        this.values[leftChild] > this.values[start] &&
+        this.values[rightChild] > this.values[start]
+      ) {
+        let max = Math.max(this.values[leftChild], this.values[rightChild]);
+        let nextStart = max === this.values[leftChild] ? leftChild : rightChild;
+        swap(this.values, start, nextStart);
+        start = nextStart;
+        leftChild = 2 * start + 1;
+        rightChild = 2 * start + 2;
+      } else if (
+        this.values[leftChild] > this.values[start] &&
+        this.values[rightChild] < this.values[start]
+      ) {
+        swap(this.values, start, leftChild);
+        start = leftChild;
+        leftChild = 2 * start + 1;
+        rightChild = 2 * start + 2;
+      } else if (
+        this.values[rightChild] > this.values[start] &&
+        this.values[leftChild] < this.values[start]
+      ) {
+        swap(this.values, start, rightChild);
+        start = rightChild;
+        leftChild = 2 * start + 1;
+        rightChild = 2 * start + 2;
+      } else {
+        break;
+      }
+    }
+    return result;
+  }
+}
+let heap = new MaxBinaryHeap();
+/* maxbinaryheap.insert(12);
+maxbinaryheap.insert(27);
+maxbinaryheap.insert(18);
+maxbinaryheap.insert(39);
+maxbinaryheap.insert(33);
+maxbinaryheap.insert(41);
+maxbinaryheap.insert(55); */
+
+/* 
+
+test case 1
+[70, 67, 65, 45, 58, 40, 53, 44, 15, 31]
+[67, 58, 65, 45, 31, 40, 53, 44, 15]  
+[65, 58, 53, 45, 31, 40, 15, 44]
+
+test case 2
+[55, 39, 41, 18, 27, 12, 33]
+[41, 39, 33, 18, 27, 12]
+[39, 27, 33, 18, 12]
+
+*/
