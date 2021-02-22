@@ -784,3 +784,87 @@ Recap
 - Binary trees can have values of any type, but at most two children for each parent
 - Binary search trees are a more specific version of binary trees where every node to the left of a parent is less than its value and every node to the right is greater 
 - We can search through trees using BFS and DFS
+
+---------------------
+Heaps
+---------------------
+https://en.wikipedia.org/wiki/Heap_(data_structure)
+https://en.wikipedia.org/wiki/List_of_data_structures
+
+They are trees
+
+What is a binary heap?
+
+Very similar to a binary search tree, but with some different rules.
+In a MaxBinaryHeap, parent nodes are always larger than child nodes. In a MinBinaryHeap, parent nodes are always smaller than child nodes.
+
+Max binary heap
+- Each parent has at most two child nodes
+- The value of each parent node is always greater than its child nodes
+- In a max binary heap, the parent is greater than the children, but there are no guarantees between sibling nodes
+- A binary heap is as compact as possible. All the children of each node are as full as they can be an and left children are filled out first 
+
+Why do we need to know this?
+- Binary heaps are used to implement priority queues, which are very commonly used data structures
+- They are also used quite a bit, with graph traversal algorithms
+
+---------------------
+
+There’s an easy way of storing a binary heap. We can use an array to store a binary heap. For any index of an array (n). The left child is stored at 2n + 1. The right child is at 2n + 2. 
+What if we have a child node and want to find its parent? 
+For any child node at index n. Its parent is at index Math.floor((n-1)/2)
+
+heap: insert
+insert pseudocode
+- Push the value into the values property on the heap
+- Bubble the value up to its correct spot
+- Bubble up
+- Create a variable called index which is the length of the values property -1
+- Create a variable called parentIndex which is the floor of (index -1)/2
+- Keep looping as long as the values element at the parentIndex is less than the values element at the child index
+- Swap the value of the values element at the parentIndex with the value of the element property at the child index
+- Set the index to be the parentIndex and start over
+
+heap: extract max (removing)
+- Remove the root
+- Replace with the most recently added
+- Adjust (sink down)
+
+pseudocode
+- Swap the first value in the values property with the last one
+- Pop from the values property, so you can return the value at the end
+- Have the new root “sink down” to the correct spot
+- Your parent index starts at 0 (the root)
+- Find the index of the left child: 2*index  + 1 (make sure it’s not out of bounds)
+- Find the index of the right child: 2*index  + 2 (make sure it’s not out of bounds)
+-  If the left or right child is greater than the element... swap. If both left and right children are larger, swap with the largest child
+- The child index you swapped to now becomes the new parent index
+- Keep looping and swapping until neither child is larger than the element
+- Return the old root
+
+---------------------
+
+Priority queue
+
+A data structure where each element has a priority. Elements with higher priorities are served before elements with lower priorities
+
+val doesn’t matter. Heap is constructed using priority
+
+pseudocode
+- Write a min binary heap - lower number means higher priority
+- Each node has a val and a priority. Use the priority to build the heap
+- Enqueue method accepts a value and priority, makes a new node, and puts it in the right spot based off of its priority
+- Dequeue method removes root element, returns it and rearranges heap using priority
+
+Big O of binary heaps 
+- Insertion - O(log n)
+- Removal - O(log n)
+- Search - O(n)
+the worst case: O(log n)
+
+Remember that when we insert into a heap we always fill out the left-side first. Unlike a binary search tree where we might have an incomplete level. In binary heap, everything is always filled out before we move on to the next level 
+
+Recap
+- Binary heaps are very useful data structures for sorting, and implementing other data structures like priority queues
+- Binary heaps are either MaxBinaryHeaps or MinBinaryHeaps with parents either larger or smaller than their children
+- With just a little bit of math, we can represent heaps using arrays
