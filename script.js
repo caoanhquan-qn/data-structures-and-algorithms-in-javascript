@@ -65,6 +65,8 @@ console.log(Object.entries(jonas));
 */
 console.log(jonas.hasOwnProperty("score")); // true
 
+/* ---Problem solving approach--- */
+
 /*
 
 Write a function which takes in a string and returns increments of each character
@@ -149,7 +151,7 @@ function isAlphaNumeric(char) {
   return true;
 }
 
-function charincrement(str) {
+function charCount(str) {
   let obj = {};
   for (let char of str) {
     if (isAlphaNumeric(char)) {
@@ -163,7 +165,9 @@ function charincrement(str) {
   return obj;
 }
 
-console.log(charincrement("hellooo!!!! HELLO"));
+console.log(charCount("hellooo!!!! HELLO"));
+
+/* ---Problem solving patterns--- */
 
 /*
 
@@ -1306,7 +1310,7 @@ const obj = {
 // console.log(collectStrings(obj)); // ["foo", "bar", "baz"])
 console.log("///////////////");
 
-// Searching Algorithms
+/* ------Searching Algorithms------ */
 
 /* 
 Write a function called linearSearch which accepts an array and a value,
@@ -1600,7 +1604,7 @@ function radixSort(arr) {
 
 console.log(radixSort([3221, 2, 10, 9680, 577]));
 
-/* data structures */
+/* ----------Data Structures---------- */
 
 // singly linked list
 
@@ -2446,3 +2450,91 @@ priorityQueue.enqueue("steven", 1);
 priorityQueue.enqueue("zhang", 4);
 priorityQueue.enqueue("lee", 2);
 priorityQueue.enqueue("kento", 3);
+
+/* Hash Table */
+
+// hash function
+// function hash(key, arrayLen) {
+//   let total = 0;
+//   for (let char of key) {
+//     let value = char.charCodeAt(0) - 96;
+//     total = (total + value) % arrayLen;
+//   }
+//   return total;
+// }
+
+// improve hash function
+function hash(key, arrayLen) {
+  let total = 0;
+  let WEIRD_PRIME = 31;
+  for (let i = 0; i < Math.min(key.length, 100); i++) {
+    let char = key[i];
+    let value = char.charCodeAt(0) - 96;
+    total = (total * WEIRD_PRIME + value) % arrayLen;
+  }
+  return total;
+}
+
+class HashTable {
+  constructor(size = 53) {
+    this.keyMap = new Array(size);
+  }
+  _hash(key) {
+    let total = 0;
+    let WEIRD_PRIME = 31;
+    for (let i = 0; i < Math.min(key.length, 100); i++) {
+      let char = key[i];
+      let value = char.charCodeAt(0) - 96;
+      total = (total * WEIRD_PRIME + value) % this.keyMap.length;
+    }
+    return total;
+  }
+  set(key, value) {
+    let index = this._hash(key);
+    if (!this.keyMap[index]) {
+      this.keyMap[index] = []; // [] = truthy, [] = Array(0)
+    }
+    this.keyMap[index].push([key, value]);
+  }
+  get(key) {
+    let index = this._hash(key);
+    if (this.keyMap[index]) {
+      for (let element of this.keyMap[index]) {
+        const [foundKey, foundValue] = element;
+        if (foundKey === key) return foundValue;
+      }
+    }
+    return undefined;
+  }
+  keys() {
+    let keysArr = [];
+    const elements = this.keyMap.flat();
+    for (const element of elements) {
+      const [foundKey] = element;
+      if (!keysArr.includes(foundKey)) {
+        keysArr.push(foundKey);
+      }
+    }
+    return keysArr;
+  }
+  values() {
+    let valuesArr = [];
+    const elements = this.keyMap.flat();
+    for (const element of elements) {
+      const [_, foundValue] = element;
+      if (!valuesArr.includes(foundValue)) {
+        valuesArr.push(foundValue);
+      }
+    }
+    return valuesArr;
+  }
+}
+
+let ht = new HashTable();
+ht.set("maroon", "#800000");
+ht.set("yellow", "#FFFF00");
+ht.set("olive", "#808000");
+ht.set("salmon", "#FA8072");
+ht.set("lightcoral", "#F08080");
+ht.set("mediumvioletred", "#C71585");
+ht.set("plum", "#DDA0DD");

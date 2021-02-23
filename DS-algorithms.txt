@@ -868,3 +868,85 @@ Recap
 - Binary heaps are very useful data structures for sorting, and implementing other data structures like priority queues
 - Binary heaps are either MaxBinaryHeaps or MinBinaryHeaps with parents either larger or smaller than their children
 - With just a little bit of math, we can represent heaps using arrays
+
+---------------------
+Hash table (hash map)
+---------------------
+
+Hash tables are used to store key-value pairs. They are like arrays, but the keys are not ordered
+Unlike arrays, hash tables are fast for all of the following operations: finding values, adding new values and removing values. 
+
+Why should we care?
+- Nearly every programming language has some sort of hash table data structure
+- Because of their speed, hash tables are very commonly used
+
+Hash tables in the wild
+- Python has Dictionaries
+- Javascript has Object Literals and Maps
+- Java, Go and Scala have Maps
+- Ruby has Hashes
+
+Hash function
+- To implement a hash table, we’ll be using an array.
+- In order to look up values by key, we need a way to convert keys into valid array indices
+- A function that performs this task is called a hash function
+
+hash = convert keys into valid array indices
+
+https://en.wikipedia.org/wiki/Hash_function
+
+What makes a good hash?
+- Fast (i.e. constant time)
+- Doesn’t cluster outputs at specific indices, but distributes uniformly
+- Deterministic (same input yields same output)
+deterministic = it means that every time we pass in one input we always get the same output, it’s determined that we’re going to get the same output. Same input to always give the same output
+
+Hash functions almost always take advantage of prime numbers. There’s a couple of reasons but it comes down to reduce collisions. It means that we don’t want data to be stored in the same buckets. We want to make sure that we are spreading data out as much as possible so that it’s faster to retrieve.
+
+Prime numbers?
+- The prime number in the hash is helpful in spreading out the keys more uniformly
+- It’s also helpful if the array that you’re putting values into has a prime length
+
+Dealing with collisions
+- Even with a large array and a great hash function, collisions are inevitable
+- There are many strategies for dealing with collisions, but we’ll focus on two: separate chaining, linear probing
+
+Separate chaining
+- With separate chaining, at each index in our array we store values using a more sophisticated data structure (e.g. an array or a linked list)
+- This allows us to store multiple key-value pairs at the same index 
+
+Linear probing
+- With linear probing, when we find a collision, we search through the array to find the next empty slot
+- Unlike with separate chaining, this allows us to store a single key-value at each index
+
+set/get
+set
+- Accepts a key and a value
+- Hashes the key
+- Stores the key-value pair in the hash table array via separate chaining
+
+get
+- Accepts a key
+- Hashes the key
+- Retrieves the key-value pair in the hash table
+- If the key isn’t found, returns undefined
+
+keys/values
+keys
+- Loops through the hash table array and returns an array of keys in the table
+
+values
+- Loops through the hash table array and returns an array of values in the table
+
+Big O of hash tables (average case)
+Insert - O(1)
+Deletion - O(1)
+Access - O(1)
+
+Recap
+- Hash tables are collections of key-value pairs
+- Hash tables can find values quickly given a key
+- Hash tables can add new key-values quickly
+- Hash tables store data in a large array and work by hashing the keys
+- A good hash should be fast, distribute keys uniformly, and be deterministic
+- Separate chaining and linear probing are two strategies used to deal with two keys that hash to the same index
