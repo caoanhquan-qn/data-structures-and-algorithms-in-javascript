@@ -2538,3 +2538,71 @@ ht.set("salmon", "#FA8072");
 ht.set("lightcoral", "#F08080");
 ht.set("mediumvioletred", "#C71585");
 ht.set("plum", "#DDA0DD");
+
+/* Graphs */
+
+// undirected graph
+class Graph {
+  constructor() {
+    this.adjacencyList = {};
+  }
+  addVertex(vertex) {
+    if (!this.adjacencyList[vertex]) {
+      this.adjacencyList[vertex] = [];
+    }
+  }
+  addEdge(vertex1, vertex2) {
+    for (const key of Object.keys(this.adjacencyList)) {
+      if (key === vertex1) {
+        this.adjacencyList[vertex1].push(vertex2);
+      }
+      if (key === vertex2) {
+        this.adjacencyList[vertex2].push(vertex1);
+      }
+    }
+    return this.adjacencyList;
+  }
+  removeEdge(vertex1, vertex2) {
+    for (const key of Object.keys(this.adjacencyList)) {
+      if (key === vertex1) {
+        const index = this.adjacencyList[vertex1].indexOf(vertex2);
+        if (index !== -1) {
+          this.adjacencyList[vertex1].splice(index, 1);
+        }
+      }
+      if (key === vertex2) {
+        const index = this.adjacencyList[vertex2].indexOf(vertex1);
+        if (index !== -1) {
+          this.adjacencyList[vertex2].splice(index, 1);
+        }
+      }
+    }
+    return this.adjacencyList;
+  }
+  removeVertex(vertex) {
+    for (const key of Object.keys(this.adjacencyList)) {
+      if (key === vertex) {
+        while (this.adjacencyList[vertex].length) {
+          const adjacentVertex = this.adjacencyList[vertex].pop();
+          this.removeEdge(vertex, adjacentVertex);
+        }
+        delete this.adjacencyList[vertex];
+      }
+    }
+    return this.adjacencyList;
+  }
+}
+let graph = new Graph();
+graph.addVertex("Tokyo");
+graph.addVertex("Dallas");
+graph.addVertex("Aspen");
+graph.addVertex("Hong Kong");
+graph.addVertex("Los Angeles");
+
+//////
+graph.addEdge("Tokyo", "Dallas");
+graph.addEdge("Tokyo", "Hong Kong");
+graph.addEdge("Dallas", "Aspen");
+graph.addEdge("Dallas", "Hong Kong");
+graph.addEdge("Dallas", "Los Angeles");
+graph.addEdge("Hong Kong", "Los Angeles");

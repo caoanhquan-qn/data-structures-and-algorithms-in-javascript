@@ -950,3 +950,84 @@ Recap
 - Hash tables store data in a large array and work by hashing the keys
 - A good hash should be fast, distribute keys uniformly, and be deterministic
 - Separate chaining and linear probing are two strategies used to deal with two keys that hash to the same index
+
+Graph
+---------------------
+
+A graph data structure consists of a finite (and possibly mutable) set of vertices or nodes or points, together with a set of unordered pairs of these vertices for an undirected graph or a set of ordered pairs for a directed graph
+
+Graph = Nodes + Connections
+
+Uses for graphs
+- Social Networks
+- Location/ Mapping
+- Routing Algorithms
+- Visual Hierarchy
+- File System Optimizations
+- Everywhere
+
+Essential graph terms
+- Vertex - a node
+- Edge - connection between nodes
+- Weighted/ Unweighted - values assigned to the edges between vertices 
+- Directed/ Undirected - directions assigned to the edges between vertices 
+
+Types of graph
+- Undirected graph
+- Directed graph
+- Weighted graph. When we assign values to the edges, it becomes a weighted graph 
+- Unweighted graph
+  
+Storing graphs
+Adjacency List and Adjacency Matrix
+
+Adjacency List
+- Can take up less space (in sparse graphs)
+- Faster to iterate over all edges
+- Can be slower to lookup specific edge
+
+Adjacency Matrix
+- Takes up more space (in sparse graphs)
+- Slower to iterate over all edges
+- Faster to look up specific edge
+
+Differences and Big O
+|V| - number of vertices
+|E| - number of edges
+
+Operation	Adjacency list	Adjacency matrix
+Add vertex	O(1)	O(|V^2|)
+Add edge	O(1)	O(1)
+Remove vertex	O(|V| + |E|)	O(|V^2|)
+Remove edge	O(|E|)	O(1)
+Query	O(|V| + |E|)	O(1)
+Storage	O(|V| + |E|)	O(|V^2|)
+
+What will we use?
+An adjacency list
+Most data in the real world tends to lend itself to sparser and/ or larger graphs
+
+using nested array or hash table to construct adjacency list
+
+
+adding a vertex
+- Write a method called addVertex, which accepts a name of a vertex
+- It should add a key to the adjacency list with the name of the vertex and set its value to be an empty array
+
+adding an edge
+- This function should accept two vertices, we can call them vertex1 and vertex2
+- The function should find in the adjacency list the key of vertex1 and push vertex2 to the array
+- The function should find in the adjacency list the key of vertex2 and push vertex1 to the array
+- Don’t worry about handling errors/ invalid vertices 
+
+removing an edge
+- This function should accept two vertices, we’ll call them vertex1 and vertex2
+- The function should reassign the key of vertex1 to be an array that does not contain vertex2
+- The function should reassign the key of vertex2 to be an array that does not contain vertex1
+- Don’t worry about handling errors/ invalid vertices 
+
+removing a vertex
+- The function should accept a vertex to remove
+- The function should loop as long as there are any other vertices in the adjacency list for that vertex
+- Inside of the loop, call our removeEdge function with the vertex we are removing and any values in the adjacency list for that vertex
+- delete the key in the adjacency list for that vertex
