@@ -2591,8 +2591,72 @@ class Graph {
     }
     return this.adjacencyList;
   }
+  dfs_recursive(start) {
+    if (!this.adjacencyList[start]) return null;
+    const result = [];
+    const visited = {};
+    const adjacencyList = this.adjacencyList;
+
+    (function dfs(vertex) {
+      if (!vertex) return null;
+      visited[vertex] = true;
+      result.push(vertex);
+      adjacencyList[vertex].forEach((neighbor) => {
+        if (!visited[neighbor]) {
+          return dfs(neighbor);
+        }
+      });
+    })(start);
+
+    return result;
+  }
+  dfs_iterative(start) {
+    if (!this.adjacencyList[start]) return null;
+    const s = new Stack();
+    const result = [];
+    const visited = {};
+    let currentVertex;
+    s.push(start);
+    while (s.size) {
+      currentVertex = s.pop();
+      if (!visited[currentVertex]) {
+        visited[currentVertex] = true;
+        result.push(currentVertex);
+        this.adjacencyList[currentVertex].forEach((neighbor) => {
+          if (!visited[neighbor]) {
+            s.push(neighbor);
+          }
+        });
+      }
+    }
+    return result;
+  }
+  bfs(start) {
+    if (!this.adjacencyList[start]) return null;
+    const result = [];
+    const visited = {};
+    const q = new Queue();
+    let currentVertex;
+
+    q.enqueue(start);
+    visited[start] = true;
+    while (q.size) {
+      currentVertex = q.dequeue();
+      result.push(currentVertex);
+      this.adjacencyList[currentVertex].forEach((neighbor) => {
+        if (!visited[neighbor]) {
+          visited[neighbor] = true;
+          q.enqueue(neighbor);
+        }
+      });
+    }
+    return result;
+  }
 }
 let graph = new Graph();
+
+/* 
+
 graph.addVertex("Tokyo");
 graph.addVertex("Dallas");
 graph.addVertex("Aspen");
@@ -2605,4 +2669,22 @@ graph.addEdge("Tokyo", "Hong Kong");
 graph.addEdge("Dallas", "Aspen");
 graph.addEdge("Dallas", "Hong Kong");
 graph.addEdge("Dallas", "Los Angeles");
-graph.addEdge("Hong Kong", "Los Angeles");
+graph.addEdge("Hong Kong", "Los Angeles"); 
+
+*/
+
+graph.addVertex("A");
+graph.addVertex("B");
+graph.addVertex("C");
+graph.addVertex("D");
+graph.addVertex("E");
+graph.addVertex("F");
+
+////
+graph.addEdge("A", "B");
+graph.addEdge("A", "C");
+graph.addEdge("B", "D");
+graph.addEdge("C", "E");
+graph.addEdge("D", "E");
+graph.addEdge("D", "F");
+graph.addEdge("E", "F");
