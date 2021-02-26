@@ -940,14 +940,17 @@ sequence of whole numbers 0, 1, 1, 2, 3, 5, 8,... which starts with 0 and 1, and
 where every number thereafter is equal to the sum of the previous two numbers
 
  */
-// function fib(num) {
-//   let arr = [0, 1];
-//   for (let i = 2; i <= num; i++) {
-//     arr.push(arr[i - 2] + arr[i - 1]);
-//   }
-//   return arr[num];
-// }
 
+// time complexity O(n)
+function fib_bottom_up(num) {
+  let arr = [0, 1];
+  for (let i = 2; i <= num; i++) {
+    arr.push(arr[i - 2] + arr[i - 1]);
+  }
+  return arr[num];
+}
+
+// time complexity O(2^n)
 // function fib(num) {
 //   if (num === 1) return 1;
 //   if (num === 0) return 0;
@@ -955,9 +958,24 @@ where every number thereafter is equal to the sum of the previous two numbers
 // }
 
 function fib(n) {
-  if (n <= 2) return 1;
+  if (n === 1 || n === 2) return 1;
   return fib(n - 1) + fib(n - 2);
 }
+
+// time complexity O(n)
+function fib_memoize(n, memo = []) {
+  if (memo[n] !== undefined) {
+    return memo[n];
+  }
+  if (n === 1 || n === 2) {
+    return 1;
+  }
+
+  let result = fib_memoize(n - 1, memo) + fib_memoize(n - 2, memo);
+  memo[n] = result;
+  return result;
+}
+
 console.log(fib(4)); // 3
 console.log(fib(10)); // 55
 console.log(fib(28)); // 317811
@@ -2688,3 +2706,90 @@ graph.addEdge("C", "E");
 graph.addEdge("D", "E");
 graph.addEdge("D", "F");
 graph.addEdge("E", "F");
+
+// dijkstra's algorithm
+class SimplePriorityQueue {
+  constructor() {
+    this.values = [];
+  }
+  enqueue(val, priority) {
+    this.values.push({ val, priority });
+    this.sort();
+  }
+  dequeue() {
+    return this.values.shift();
+  }
+
+  // time complexity O(n * log(n))
+  sort() {
+    this.values.sort((a, b) => a.priority - b.priority);
+  }
+}
+class WeightedGraph {
+  constructor() {
+    this.adjacencyList = {};
+  }
+  addVertex(vertex) {
+    if (!this.adjacencyList[vertex]) this.adjacencyList[vertex] = [];
+  }
+  addEdge(vertex1, vertex2, weight) {
+    this.adjacencyList[vertex1].push({ node: vertex2, weight });
+    this.adjacencyList[vertex2].push({ node: vertex1, weight });
+  }
+  dijkstra(start, end) {
+    const queue = new PriorityQueue();
+    const distances = {};
+    const previous = {};
+    let path = [];
+    let smallest;
+    for (let vertex of Object.keys(this.adjacencyList)) {
+      if (vertex === start) {
+        distances[vertex] = 0;
+        queue.enqueue(vertex, 0);
+      } else {
+        distances[vertex] = Infinity;
+        queue.enqueue(vertex, Infinity);
+      }
+      previous[vertex] = null;
+    }
+    while (queue.values.length) {
+      smallest = queue.dequeue().val;
+      if (smallest === end) {
+        while (previous[smallest]) {
+          path.push(smallest);
+          smallest = previous[smallest];
+        }
+        break;
+      }
+      if (smallest || distances[smallest] !== Infinity) {
+        for (let neighbor in this.adjacencyList[smallest]) {
+          let nextNode = this.adjacencyList[smallest][neighbor];
+          let candidate = distances[smallest] + nextNode.weight;
+          if (candidate < distances[nextNode.node]) {
+            distances[nextNode.node] = candidate;
+            previous[nextNode.node] = smallest;
+            queue.enqueue(nextNode.node, candidate);
+          }
+        }
+      }
+    }
+    return path.concat(smallest).reverse();
+  }
+}
+
+let g = new WeightedGraph();
+g.addVertex("A");
+g.addVertex("B");
+g.addVertex("C");
+g.addVertex("D");
+g.addVertex("E");
+g.addVertex("F");
+////
+g.addEdge("A", "B", 4);
+g.addEdge("A", "C", 2);
+g.addEdge("B", "E", 3);
+g.addEdge("C", "D", 2);
+g.addEdge("C", "F", 4);
+g.addEdge("D", "E", 3);
+g.addEdge("D", "F", 1);
+g.addEdge("E", "F", 1);
