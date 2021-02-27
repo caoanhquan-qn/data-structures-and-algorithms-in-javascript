@@ -1614,6 +1614,7 @@ function radixSort(arr) {
       bucket[getDigit(arr[i], k)].push(arr[i]);
     }
     arr = bucket.flat(1);
+    // arr = [].concat(...bucket);
   }
   return arr;
 }
@@ -2075,6 +2076,34 @@ but that isn't efficient
 
 */
 let queue = new Queue();
+
+// Implement Stack using two Queues
+class StackUsingQueue {
+  constructor() {
+    this.q1 = new Queue();
+    this.q2 = new Queue();
+    this.size = 0;
+  }
+  push(val) {
+    this.q1.enqueue(val);
+    this.size++;
+    return this;
+  }
+  pop() {
+    if (this.size === 0) return null;
+    while (this.q1.size !== 1) {
+      this.q2.enqueue(this.q1.dequeue());
+    }
+
+    let temp = this.q1.dequeue();
+    let queue = new Queue();
+    queue = this.q1;
+    this.q1 = this.q2;
+    this.q2 = queue;
+    this.size--;
+    return temp;
+  }
+}
 
 // Binary Search Tree
 class BSTNode {
