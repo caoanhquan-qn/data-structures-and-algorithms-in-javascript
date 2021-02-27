@@ -352,6 +352,13 @@ O(n log n)
 worst case : O(n^2) where our data is already sorted 
 
 Radix sort 
+
+Radix sort helpers
+- In order to implement radix sort, it’s helpful to build a few helper functions first:
+    - getDigit(num, place) - returns the digit in num at the given place value
+    - digitCount(num) - returns the number of digits in num
+    - mostDigits(nums) - given an array of numbers, returns the number of digits in the largest number in the list 
+
 Radix sort pseudocode
 - Define a function that accepts list of numbers
 - Figure out how many digits the largest number has 

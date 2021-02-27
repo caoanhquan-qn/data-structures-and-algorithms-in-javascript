@@ -1593,19 +1593,17 @@ function getDigit(num, place) {
 }
 // find the number of digits in [num]
 function digitCount(num) {
-  const numString = Math.abs(num).toString();
-  return numString.length;
+  if (num === 0) return 1;
+  return Math.floor(Math.log10(Math.abs(num))) + 1;
 }
 
 //find the number of digits in the largest numbers in the list
 function mostDigits(arr) {
-  let max = -Infinity;
+  let maxDigits = 0;
   for (let i = 0; i < arr.length; i++) {
-    if (arr[i] > max) {
-      max = arr[i];
-    }
+    maxDigits = Math.max(maxDigits, digitCount(arr[i]));
   }
-  return digitCount(max);
+  return maxDigits;
 }
 
 function radixSort(arr) {
