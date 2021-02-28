@@ -2174,18 +2174,40 @@ class BinarySearchTree {
     }
   }
 
-  //search for a node with a minimum value starting from node
-  findMinNode(val) {
-    let current = this.find(val);
-    if (!current) return undefined;
-    while (true) {
-      if (current.left === null) {
-        return current;
+  kthSmallestNode(node) {
+    while (node.left !== null) node = node.left;
+    return node;
+  }
+
+  removeNode(current, value) {
+    if (current === null) return current;
+    if (value === current.val) {
+      if (current.left === null && current.right === null) {
+        return null;
+      } else if (current.left === null) {
+        return current.right;
+      } else if (current.right === null) {
+        return current.left;
       } else {
-        current = current.left;
+        let tempNode = this.kthSmallestNode(current.right);
+        current.val = tempNode.val;
+
+        current.right = this.removeNode(current.right, tempNode.val);
+        return current;
       }
+    } else if (value < current.val) {
+      current.left = this.removeNode(current.left, value);
+      return current;
+    } else {
+      current.right = this.removeNode(current.right, value);
+      return current;
     }
   }
+  remove(val) {
+    this.root = this.removeNode(this.root, val);
+  }
+  findSecondLargest() {}
+
   bfs() {
     let queue = [],
       visited = [];
@@ -2264,6 +2286,10 @@ class MaxBinaryHeap {
   }
   insert(val) {
     this.values.push(val);
+    this.bubbleUp();
+    return this.values;
+  }
+  bubbleUp() {
     let index = this.values.length - 1;
     let parentIndex = Math.floor((index - 1) / 2);
     let temp;
@@ -2274,59 +2300,63 @@ class MaxBinaryHeap {
       index = parentIndex;
       parentIndex = Math.floor((index - 1) / 2);
     }
-    return this.values;
   }
-
   extractMax() {
-    if (this.values.length === 0) return undefined;
-    const swap = function (arr, index1, index2) {
-      [arr[index1], arr[index2]] = [arr[index2], arr[index1]];
-    };
-    swap(this.values, 0, this.values.length - 1);
-    let result = this.values.pop();
-    if (this.values.length === 2) {
-      let max = Math.max(this.values[0], this.values[1]);
-      let min = Math.min(this.values[0], this.values[1]);
-      this.values[0] = max;
-      this.values[1] = min;
-      return result;
+    const max = this.values[0];
+    const end = this.values.pop();
+    if (this.values.length > 0) {
+      this.values[0] = end;
+      this.sinkDown();
     }
-    let start = 0;
-    let leftChild = 2 * start + 1;
-    let rightChild = 2 * start + 2;
 
-    while (leftChild < this.values.length && rightChild < this.values.length) {
+    return max;
+  }
+  sinkDown() {
+    let parentIndex = 0;
+    let leftChildIndex = 2 * parentIndex + 1;
+    let rightChildIndex = 2 * parentIndex + 2;
+    const element = this.values[parentIndex];
+    while (
+      this.values[parentIndex] < this.values[leftChildIndex] ||
+      this.values[parentIndex] < this.values[rightChildIndex]
+    ) {
       if (
-        this.values[leftChild] > this.values[start] &&
-        this.values[rightChild] > this.values[start]
+        this.values[leftChildIndex] > this.values[parentIndex] &&
+        this.values[rightChildIndex] < this.values[parentIndex]
       ) {
-        let max = Math.max(this.values[leftChild], this.values[rightChild]);
-        let nextStart = max === this.values[leftChild] ? leftChild : rightChild;
-        swap(this.values, start, nextStart);
-        start = nextStart;
-        leftChild = 2 * start + 1;
-        rightChild = 2 * start + 2;
+        this.values[parentIndex] = this.values[leftChildIndex];
+        this.values[leftChildIndex] = element;
+        parentIndex = leftChildIndex;
+        leftChildIndex = 2 * parentIndex + 1;
+        rightChildIndex = 2 * parentIndex + 2;
       } else if (
-        this.values[leftChild] > this.values[start] &&
-        this.values[rightChild] < this.values[start]
+        this.values[rightChildIndex] > this.values[parentIndex] &&
+        this.values[leftChildIndex] < this.values[parentIndex]
       ) {
-        swap(this.values, start, leftChild);
-        start = leftChild;
-        leftChild = 2 * start + 1;
-        rightChild = 2 * start + 2;
+        this.values[parentIndex] = this.values[rightChildIndex];
+        this.values[rightChildIndex] = element;
+        parentIndex = rightChildIndex;
+        leftChildIndex = 2 * parentIndex + 1;
+        rightChildIndex = 2 * parentIndex + 2;
       } else if (
-        this.values[rightChild] > this.values[start] &&
-        this.values[leftChild] < this.values[start]
+        this.values[leftChildIndex] > this.values[parentIndex] &&
+        this.values[rightChildIndex] > this.values[parentIndex]
       ) {
-        swap(this.values, start, rightChild);
-        start = rightChild;
-        leftChild = 2 * start + 1;
-        rightChild = 2 * start + 2;
-      } else {
-        break;
+        let maxValue = Math.max(
+          this.values[leftChildIndex],
+          this.values[rightChildIndex]
+        );
+        let swapIndex =
+          maxValue === this.values[leftChildIndex]
+            ? leftChildIndex
+            : rightChildIndex;
+        this.values[parentIndex] = this.values[swapIndex];
+        this.values[swapIndex] = element;
+        parentIndex = swapIndex;
+        leftChildIndex = 2 * parentIndex + 1;
+        rightChildIndex = 2 * parentIndex + 2;
       }
     }
-    return result;
   }
 }
 let heap = new MaxBinaryHeap();

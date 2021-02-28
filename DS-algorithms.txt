@@ -799,9 +799,9 @@ steps - iteratively
 - Create a queue (this can be an array) and a variable to store the values of nodes visited 
 - Place the root node in the queue
 - Loop as long as there is anything in the queue
-- Dequeue a node from the queue and push the value of the node into the variable that stores the nodes
-- If there is a left property on the node dequeued - add it to the queue
-- If there is a right property on the node dequeued - add it to the queue
+    - Dequeue a node from the queue and push the value of the node into the variable that stores the nodes
+    - If there is a left property on the node dequeued - add it to the queue
+    - If there is a right property on the node dequeued - add it to the queue
 - Return the variable that stores the values
 
 DFS - PreOrder
@@ -809,10 +809,10 @@ Steps - Recursively
 - Create a variable to store the values of nodes visited
 - Store the root of the BST in a variable called current
 - Write a helper function which accepts a node
-- Push the value of the node to the variable that stores the values
-- If the node has a left property, call the helper function with the left property on the node
-- If the node has a right property, call the helper function with the right property on the node
-- Invoke the helper function with the current variable
+    - Push the value of the node to the variable that stores the values
+    - If the node has a left property, call the helper function with the left property on the node
+    - If the node has a right property, call the helper function with the right property on the node
+    - Invoke the helper function with the current variable
 - Return the array of values
 
 DFS - PostOrder
@@ -820,10 +820,10 @@ Steps - Recursively
 - Create a variable to store the values of nodes visited
 - Store the root of the BST in a variable called current
 - Write a helper function which accepts a node
-- If the node has a left property, call the helper function with the left property on the node
-- If the node has a right property, call the helper function with the right property on the node
-- Push the value of the node to the variable that stores the values
-- Invoke the helper function with the current variable
+    - If the node has a left property, call the helper function with the left property on the node
+    - If the node has a right property, call the helper function with the right property on the node
+    - Push the value of the node to the variable that stores the values
+    - Invoke the helper function with the current variable
 - Return the array of values 
 
 DFS - InOrder
@@ -831,10 +831,10 @@ Steps - Recursively
 - Create a variable to store the values of nodes visited
 - Store the root of the BST in a variable called current 
 - Write a helper function which accepts a node
-- If the node has a left property, call the helper function with the left property on the node
-- Push the value of the node to the variable that stores the values
-- If the node has a right property, call the helper function with the right property on the node
-- Invoke the helper function with the current variable
+    - If the node has a left property, call the helper function with the left property on the node
+    - Push the value of the node to the variable that stores the values
+    - If the node has a right property, call the helper function with the right property on the node
+    - Invoke the helper function with the current variable
 - Return the array of values 
 
 Recap
@@ -877,11 +877,11 @@ insert pseudocode
 - Push the value into the values property on the heap
 - Bubble the value up to its correct spot
 - Bubble up
-- Create a variable called index which is the length of the values property -1
-- Create a variable called parentIndex which is the floor of (index -1)/2
-- Keep looping as long as the values element at the parentIndex is less than the values element at the child index
-- Swap the value of the values element at the parentIndex with the value of the element property at the child index
-- Set the index to be the parentIndex and start over
+    - Create a variable called index which is the length of the values property -1
+    - Create a variable called parentIndex which is the floor of (index -1)/2
+    - Keep looping as long as the values element at the parentIndex is less than the values element at the child index
+        - Swap the value of the values element at the parentIndex with the value of the element property at the child index
+        - Set the index to be the parentIndex and start over
 
 heap: extract max (removing)
 - Remove the root
@@ -892,13 +892,13 @@ pseudocode
 - Swap the first value in the values property with the last one
 - Pop from the values property, so you can return the value at the end
 - Have the new root “sink down” to the correct spot
-- Your parent index starts at 0 (the root)
-- Find the index of the left child: 2*index  + 1 (make sure it’s not out of bounds)
-- Find the index of the right child: 2*index  + 2 (make sure it’s not out of bounds)
--  If the left or right child is greater than the element... swap. If both left and right children are larger, swap with the largest child
-- The child index you swapped to now becomes the new parent index
-- Keep looping and swapping until neither child is larger than the element
-- Return the old root
+    - Your parent index starts at 0 (the root)
+    - Find the index of the left child: 2*index  + 1 (make sure it’s not out of bounds)
+    - Find the index of the right child: 2*index  + 2 (make sure it’s not out of bounds)
+    -  If the left or right child is greater than the element... swap. If both left and right children are larger, swap with the largest child
+    - The child index you swapped to now becomes the new parent index
+    - Keep looping and swapping until neither child is larger than the element
+    - Return the old root
 
 ---------------------
 
