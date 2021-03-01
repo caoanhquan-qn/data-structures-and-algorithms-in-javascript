@@ -2206,7 +2206,10 @@ class BinarySearchTree {
   remove(val) {
     this.root = this.removeNode(this.root, val);
   }
-  findSecondLargest() {}
+  findSecondLargest() {
+    const data = this.dfs_InOrder();
+    return data[data.length - 2];
+  }
 
   bfs() {
     let queue = [],
@@ -2258,12 +2261,12 @@ class BinarySearchTree {
     let visited = [];
     let current = this.root;
     if (!current) return [];
-    function postOrder(node) {
-      if (node.left) postOrder(node.left);
+    function inOrder(node) {
+      if (node.left) inOrder(node.left);
       visited.push(node.val);
-      if (node.right) postOrder(node.right);
+      if (node.right) inOrder(node.right);
     }
-    postOrder(current);
+    inOrder(current);
     return visited;
   }
 }
