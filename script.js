@@ -2211,6 +2211,37 @@ class BinarySearchTree {
     return data[data.length - 2];
   }
 
+  /* A balanced tree is defined as a tree where the depth of all leaf nodes or 
+  nodes with single child differ by no more than 1 */
+
+  findHeight(node) {
+    if (node === null) return -1;
+    return (
+      1 + Math.max(this.findHeight(node.left), this.findHeight(node.right))
+    );
+  }
+
+  isBalanced(node) {
+    if (node === null) return true;
+    let leftHeight = this.findHeight(node.left);
+    let rightHeight = this.findHeight(node.right);
+    if (
+      Math.abs(leftHeight - rightHeight) <= 1 &&
+      this.isBalanced(node.left) &&
+      this.isBalanced(node.right)
+    ) {
+      return true;
+    }
+    return false;
+  }
+  isBalanced() {
+    if (this.root === null) return true;
+    let leftHeight = this.findHeight(this.root.left);
+    let rightHeight = this.findHeight(this.root.right);
+    if (Math.abs(leftHeight - rightHeight) <= 1) return true;
+    return false;
+  }
+
   bfs() {
     let queue = [],
       visited = [];
